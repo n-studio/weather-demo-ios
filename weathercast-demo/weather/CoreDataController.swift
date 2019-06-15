@@ -6,14 +6,20 @@
 //  Copyright © 2019 Solfanto, Inc. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class CoreDataController {
-    func saveToDatabase(_ forecasts: [Forecast]) {
-        
-    }
-    
-    func saveToDatabase(_ currentWeather: CurrentWeather) {
-        
+    func save() {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+
+        let managedContext = appDelegate.persistentContainer.viewContext
+
+        do {
+            try managedContext.save()
+        } catch let error {
+            NSLog("Error: \(error.localizedDescription)")
+        }
     }
 }

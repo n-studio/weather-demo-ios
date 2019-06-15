@@ -9,15 +9,15 @@
 import Foundation
 
 class WeatherController {
-    let openAPIController = OpenAPIController()
+    let openWeatherAPIController = OpenWeatherAPIController()
     let coreDataController = CoreDataController()
     let weatherDataFactory = WeatherDataFactory()
 
     func fetchForecast(completion: @escaping (_ forecasts: [Forecast]) -> ()) {
-        openAPIController.requestForecast(zipcode: "75000", country: "fr") { jsonData in
+        openWeatherAPIController.requestForecast(zipcode: "75000", country: "fr") { jsonData in
             DispatchQueue.main.async {
                 let forecasts = self.weatherDataFactory.parseAndBuildForecastsFrom(jsonData: jsonData)
-                self.coreDataController.saveToDatabase(forecasts)
+                self.coreDataController.save()
                 completion(forecasts)
             }
         }

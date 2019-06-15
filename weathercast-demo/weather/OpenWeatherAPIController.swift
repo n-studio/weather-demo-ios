@@ -1,5 +1,5 @@
 //
-//  OpenAPIController.swift
+//  OpenWeatherAPIController.swift
 //  weathercast-demo
 //
 //  Created by Matthew Nguyen on 2019/06/15.
@@ -8,9 +8,9 @@
 
 import Foundation
 
-class OpenAPIController {
-    let defaultSession = URLSession(configuration: .default)
-    var dataTask: URLSessionDataTask?
+class OpenWeatherAPIController {
+    private let defaultSession = URLSession(configuration: .default)
+    private var dataTask: URLSessionDataTask?
     typealias JSONResult = (Data) -> ()
 
     lazy var openWeatherMapApiKey: String = {
