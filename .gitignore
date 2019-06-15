@@ -81,3 +81,5 @@ fastlane/test_output
 
 iOSInjectionProject/
 
+Env.plist
+
