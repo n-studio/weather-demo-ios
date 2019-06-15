@@ -8,16 +8,21 @@
 
 import Foundation
 
+enum TempUnit {
+    case Kelvin
+    case Metric
+    case Imperial
+}
+
 class TemperatureDecorator {
-    class func metric(_ temperatureInKelvin: Float) -> String {
-        return "°C"
-    }
-    
-    class func imperial(_ temperatureInKelvin: Float) -> String {
-        return "°F"
-    }
-    
-    class func kelvin(_ temperatureInKelvin: Float) -> String {
-        return "\(temperatureInKelvin.rounded()) K"
+    class func convert(_ temperatureInKelvin: Float, unit: TempUnit) -> String {
+        switch unit {
+        case .Metric:
+            return "\(Int(round(temperatureInKelvin - 273.15))) °C"
+        case .Imperial:
+            return "\(Int(round(temperatureInKelvin * 9.0 / 5.0 - 459.67))) °F"
+        default:
+            return "\(Int(round(temperatureInKelvin))) K"
+        }
     }
 }

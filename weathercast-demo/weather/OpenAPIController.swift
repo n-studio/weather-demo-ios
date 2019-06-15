@@ -11,15 +11,13 @@ import Foundation
 class OpenAPIController {
     let defaultSession = URLSession(configuration: .default)
     var dataTask: URLSessionDataTask?
-    typealias JSONResult = (String) -> ()
+    typealias JSONResult = (Data) -> ()
 
     lazy var openWeatherMapApiKey: String = {
-        if let path = Bundle.main.path(forResource: "Env", ofType: "plist") {
-            if let keys = NSDictionary(contentsOfFile: path) {
-                return keys.value(forKey: "openWeatherMapApiKey") as! String
-            }
-        }
-        return ""
+        guard let path = Bundle.main.path(forResource: "Env", ofType: "plist") else { return "" }
+        guard let keys = NSDictionary(contentsOfFile: path) else { return "" }
+
+        return keys.value(forKey: "openWeatherMapApiKey") as! String
     }()
 
     func requestForecast(zipcode: String, country: String, completion: @escaping JSONResult) {
@@ -34,7 +32,7 @@ class OpenAPIController {
                     NSLog("Error: \(error.localizedDescription)")
                 }
                 else if let data = data, let response = response as? HTTPURLResponse, response.statusCode == 200 {
-                    completion(String(data: data, encoding: .utf8)!)
+                    completion(data)
                 }
             }
         }

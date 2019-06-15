@@ -9,7 +9,7 @@
 import Foundation
 
 class CoreDataController {
-    func saveToDatabase(_ forecast: Forecast) {
+    func saveToDatabase(_ forecasts: [Forecast]) {
         
     }
     
