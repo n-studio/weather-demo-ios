@@ -28,6 +28,7 @@
 		E25F61DE22B4E21500C08E50 /* Env.plist in Resources */ = {isa = PBXBuildFile; fileRef = E25F61DD22B4E21500C08E50 /* Env.plist */; };
 		E25F61E222B4E6F900C08E50 /* forecast_data.json in Resources */ = {isa = PBXBuildFile; fileRef = E25F61E122B4E6F900C08E50 /* forecast_data.json */; };
 		E26462F322B5AF0000F6EB80 /* UIImage+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26462F222B5AF0000F6EB80 /* UIImage+extension.swift */; };
+		E2C414B522BBFC92006EEAA5 /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C414B422BBFC92006EEAA5 /* Screen.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +79,7 @@
 		E25F61E022B4E23500C08E50 /* Env.example.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Env.example.plist; sourceTree = "<group>"; };
 		E25F61E122B4E6F900C08E50 /* forecast_data.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = forecast_data.json; sourceTree = "<group>"; };
 		E26462F222B5AF0000F6EB80 /* UIImage+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+extension.swift"; sourceTree = "<group>"; };
+		E2C414B422BBFC92006EEAA5 /* Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +163,7 @@
 				E25F61A222B4C98B00C08E50 /* MainViewController.swift */,
 				E241011022B57AF500D18C3C /* Cells */,
 				E26462F122B5AEF100F6EB80 /* Extensions */,
+				E2C414B322BBFC44006EEAA5 /* Screen */,
 				E25F61D222B4CBF000C08E50 /* weather */,
 				E25F61AA22B4C98D00C08E50 /* Assets.xcassets */,
 				E241011522B581AA00D18C3C /* Main.storyboard */,
@@ -212,6 +215,14 @@
 				E26462F222B5AF0000F6EB80 /* UIImage+extension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		E2C414B322BBFC44006EEAA5 /* Screen */ = {
+			isa = PBXGroup;
+			children = (
+				E2C414B422BBFC92006EEAA5 /* Screen.swift */,
+			);
+			path = Screen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -394,6 +405,7 @@
 				E25F61D822B4CE3000C08E50 /* OpenWeatherAPIController.swift in Sources */,
 				E26462F322B5AF0000F6EB80 /* UIImage+extension.swift in Sources */,
 				E241011222B57B1B00D18C3C /* CityOverviewCell.swift in Sources */,
+				E2C414B522BBFC92006EEAA5 /* Screen.swift in Sources */,
 				E25F61DC22B4D1DE00C08E50 /* TemperatureDecorator.swift in Sources */,
 				E25F61A322B4C98B00C08E50 /* MainViewController.swift in Sources */,
 				E25F61A122B4C98B00C08E50 /* AppDelegate.swift in Sources */,
