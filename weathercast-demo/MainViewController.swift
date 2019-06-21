@@ -9,6 +9,9 @@
 import UIKit
 
 class MainViewController: UICollectionViewController {
+    let weatherController = WeatherController()
+    var cities: [[String: Any]] = [["zipcode": "75000", "name": "Paris"]]
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
@@ -24,8 +27,25 @@ class MainViewController: UICollectionViewController {
 
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(CityOverviewCell.self, forCellWithReuseIdentifier: "CityOverview")
         collectionView.alwaysBounceVertical = true
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        // Fetch data for all cities
+        let serialQueue = DispatchQueue(label: "SerialQueue")
+        for index in 0..<cities.count {
+            guard let zipcode = self.cities[index]["zipcode"] as? String else { continue }
+            weatherController.fetchForecast(zipcode: zipcode) { (forecasts) in
+                serialQueue.sync {
+                    self.cities[index]["forecasts"] = forecasts
+                }
+                DispatchQueue.main.sync {
+                    self.collectionView.reloadItems(at: [IndexPath(row: index, section: 0)])
+                }
+            }
+        }
     }
 }
 
@@ -37,12 +57,20 @@ extension MainViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return self.cities.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CityOverview", for: indexPath) as! CityOverviewCell
-        cell.cityName = "Paris"
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CityOverviewCell", for: indexPath) as! CityOverviewCell
+
+        cell.cityName = self.cities[indexPath.row]["name"] as? String
+
+        guard let forecasts = self.cities[indexPath.row]["forecasts"] as? [Forecast] else { return cell }
+        guard let todayForecast = forecasts.first else { return cell }
+
+        let todayForecastDecorator = ForecastDecorator(forecast: todayForecast)
+        cell.temperatureLabel?.text = todayForecastDecorator.temperature(unit: .metric)
+
         return cell
     }
 }

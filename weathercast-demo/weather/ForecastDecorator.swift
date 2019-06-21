@@ -16,6 +16,6 @@ class ForecastDecorator {
     }
 
     func temperature(unit: TempUnit) -> String {
-        return TemperatureDecorator.convert(20, unit: unit)
+        return TemperatureDecorator.convert(forecast.temp, unit: unit)
     }
 }

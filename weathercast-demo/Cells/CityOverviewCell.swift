@@ -9,15 +9,30 @@
 import UIKit
 
 class CityOverviewCell: UICollectionViewCell {
+    @IBOutlet var cityLabel: UILabel!
+    @IBOutlet var dateLabel: UILabel!
+    @IBOutlet var timeLabel: UILabel!
+    @IBOutlet var temperatureLabel: UILabel!
+    @IBOutlet var weatherIcon: UIImageView!
+    @IBOutlet var weatherLabel: UILabel!
+    @IBOutlet var maxTemperatureIcon: UIImageView!
+    @IBOutlet var maxTemperatureLabel: UILabel!
+    @IBOutlet var minTemperatureIcon: UIImageView!
+    @IBOutlet var minTemperatureLabel: UILabel!
+
+    let cornerRadius: CGFloat = 20.0
+
     let openPhotosApiController = OpenPhotosAPIController()
     var cityName: String? {
         didSet {
-            openPhotosApiController.searchPhoto(query: "Paris") { (urlString) in
+            guard let name = cityName else { return }
+            self.cityLabel.text = name
+            openPhotosApiController.searchPhoto(query: name) { (urlString) in
                 self.openPhotosApiController.getPhoto(urlString: urlString) { (image) in
                     DispatchQueue.main.async {
-                        let imageView = UIImageView(image: image.alpha(0.7))
+                        let imageView = UIImageView(image: image.alpha(0.8))
                         imageView.contentMode = .scaleAspectFill
-                        imageView.layer.cornerRadius = 10.0
+                        imageView.layer.cornerRadius = self.cornerRadius
                         imageView.layer.masksToBounds = true
                         self.backgroundView = imageView
                     }
@@ -26,10 +41,12 @@ class CityOverviewCell: UICollectionViewCell {
         }
     }
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
 
-        self.contentView.layer.cornerRadius = 10.0
+        self.backgroundColor = .clear
+
+        self.contentView.layer.cornerRadius = cornerRadius
         self.contentView.layer.borderWidth = 1.0
         self.contentView.layer.borderColor = UIColor.clear.cgColor
         self.contentView.layer.masksToBounds = true
@@ -39,10 +56,18 @@ class CityOverviewCell: UICollectionViewCell {
         self.layer.shadowRadius = 5.0
         self.layer.shadowOpacity = 0.5
         self.layer.masksToBounds = false
-        self.layer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: self.contentView.layer.cornerRadius).cgPath
     }
 
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+
+        for view in self.contentView.subviews {
+            if view is UILabel {
+                view.layer.shadowColor = UIColor.black.cgColor
+                view.layer.shadowOffset = CGSize(width: 0, height: 0)
+                view.layer.shadowRadius = 3.0
+                view.layer.shadowOpacity = 0.5
+            }
+        }
     }
 }

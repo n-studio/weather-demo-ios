@@ -24,8 +24,8 @@ class WeathercastDemoTests: XCTestCase {
     }
 
     func testTemperatureDecorator() {
-        assert(TemperatureDecorator.convert(293.15, unit: .Metric) == "20 °C", TemperatureDecorator.convert(293.15, unit: .Metric))
-        assert(TemperatureDecorator.convert(293.15, unit: .Imperial) == "68 °F", TemperatureDecorator.convert(293.15, unit: .Imperial))
+        assert(TemperatureDecorator.convert(293.15, unit: .metric) == "20℃", TemperatureDecorator.convert(293.15, unit: .metric))
+        assert(TemperatureDecorator.convert(293.15, unit: .imperial) == "68℉", TemperatureDecorator.convert(293.15, unit: .imperial))
     }
 
     func testForecastRecord() {
@@ -33,7 +33,7 @@ class WeathercastDemoTests: XCTestCase {
 
         let controller = WeatherController()
 
-        controller.fetchForecast { forecasts in
+        controller.fetchForecast(zipcode: "75000") { forecasts in
             guard let forecast = forecasts.first else {
                 assert(false)
                 return

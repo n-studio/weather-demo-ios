@@ -9,20 +9,20 @@
 import Foundation
 
 enum TempUnit {
-    case Kelvin
-    case Metric
-    case Imperial
+    case kelvin
+    case metric
+    case imperial
 }
 
 class TemperatureDecorator {
     class func convert(_ temperatureInKelvin: Float, unit: TempUnit) -> String {
         switch unit {
-        case .Metric:
-            return "\(Int(round(temperatureInKelvin - 273.15))) °C"
-        case .Imperial:
-            return "\(Int(round(temperatureInKelvin * 9.0 / 5.0 - 459.67))) °F"
+        case .metric:
+            return "\(Int(round(temperatureInKelvin - 273.15)))℃"
+        case .imperial:
+            return "\(Int(round(temperatureInKelvin * 9.0 / 5.0 - 459.67)))℉"
         default:
-            return "\(Int(round(temperatureInKelvin))) K"
+            return "\(Int(round(temperatureInKelvin)))K"
         }
     }
 }

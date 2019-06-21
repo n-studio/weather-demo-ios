@@ -10,11 +10,13 @@ import UIKit
 
 class CoreDataController {
     func save() {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            return
+        var appDelegate: AppDelegate?
+        DispatchQueue.main.sync {
+            appDelegate = UIApplication.shared.delegate as? AppDelegate
         }
+        guard let delegate = appDelegate else { fatalError("Error: Couldn't access appDelegate") }
 
-        let managedContext = appDelegate.persistentContainer.viewContext
+        let managedContext = delegate.persistentContainer.viewContext
 
         do {
             try managedContext.save()
