@@ -28,6 +28,7 @@
 		E25F61DE22B4E21500C08E50 /* Env.plist in Resources */ = {isa = PBXBuildFile; fileRef = E25F61DD22B4E21500C08E50 /* Env.plist */; };
 		E25F61E222B4E6F900C08E50 /* forecast_data.json in Resources */ = {isa = PBXBuildFile; fileRef = E25F61E122B4E6F900C08E50 /* forecast_data.json */; };
 		E26462F322B5AF0000F6EB80 /* UIImage+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26462F222B5AF0000F6EB80 /* UIImage+extension.swift */; };
+		E266F47722BD85A800F2A4A2 /* CitiesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E266F47622BD85A800F2A4A2 /* CitiesController.swift */; };
 		E2C414B522BBFC92006EEAA5 /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C414B422BBFC92006EEAA5 /* Screen.swift */; };
 /* End PBXBuildFile section */
 
@@ -79,6 +80,7 @@
 		E25F61E022B4E23500C08E50 /* Env.example.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Env.example.plist; sourceTree = "<group>"; };
 		E25F61E122B4E6F900C08E50 /* forecast_data.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = forecast_data.json; sourceTree = "<group>"; };
 		E26462F222B5AF0000F6EB80 /* UIImage+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+extension.swift"; sourceTree = "<group>"; };
+		E266F47622BD85A800F2A4A2 /* CitiesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesController.swift; sourceTree = "<group>"; };
 		E2C414B422BBFC92006EEAA5 /* Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -198,6 +200,7 @@
 		E25F61D222B4CBF000C08E50 /* weather */ = {
 			isa = PBXGroup;
 			children = (
+				E266F47622BD85A800F2A4A2 /* CitiesController.swift */,
 				E25F61D522B4CE0800C08E50 /* CoreDataController.swift */,
 				E241010D22B4F6EF00D18C3C /* ForecastDecorator.swift */,
 				E241011822B588A200D18C3C /* OpenPhotosAPIController.swift */,
@@ -404,6 +407,7 @@
 			files = (
 				E25F61D822B4CE3000C08E50 /* OpenWeatherAPIController.swift in Sources */,
 				E26462F322B5AF0000F6EB80 /* UIImage+extension.swift in Sources */,
+				E266F47722BD85A800F2A4A2 /* CitiesController.swift in Sources */,
 				E241011222B57B1B00D18C3C /* CityOverviewCell.swift in Sources */,
 				E2C414B522BBFC92006EEAA5 /* Screen.swift in Sources */,
 				E25F61DC22B4D1DE00C08E50 /* TemperatureDecorator.swift in Sources */,
