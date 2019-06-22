@@ -20,7 +20,7 @@ class CityOverviewCell: UICollectionViewCell {
     @IBOutlet var maxTemperatureLabel: UILabel!
     @IBOutlet var minTemperatureIcon: UIImageView!
     @IBOutlet var minTemperatureLabel: UILabel!
-    @IBOutlet var weekForecastView: UIStackView!
+    @IBOutlet var weekForecastView: UICollectionView!
 
     let cornerRadius: CGFloat = 20.0
     var timer: Timer?
@@ -79,13 +79,7 @@ class CityOverviewCell: UICollectionViewCell {
             self.maxTemperatureIcon.image = todayForecastDecorator.maxTemperatureIcon()
             self.maxTemperatureLabel?.text = todayForecastDecorator.maxTemperature(unit: .metric)
 
-            for (index, forecast) in forecasts.enumerated() {
-                if index < self.weekForecastView.arrangedSubviews.count {
-                    if let view = self.weekForecastView.arrangedSubviews[index] as? DayForecastView {
-                        view.forecast = forecast
-                    }
-                }
-            }
+            self.weekForecastView.reloadData()
         }
     }
 
@@ -122,6 +116,8 @@ class CityOverviewCell: UICollectionViewCell {
         self.maxTemperatureIcon.tintColor = .white
         self.weatherIcon.tintColor = .white
 
+        self.weekForecastView.dataSource = self
+
         startClock()
     }
 
@@ -146,5 +142,20 @@ extension CityOverviewCell {
         let date = Date()
         self.dateLabel.text = dateFormatter.string(from: date)
         self.timeLabel.text = timeFormatter.string(from: date)
+    }
+}
+
+// MARK: UICollectionViewDataSource
+
+extension CityOverviewCell: UICollectionViewDataSource {
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return forecasts.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DayForecastCell", for: indexPath) as! DayForecastCell
+        cell.forecast = forecasts[indexPath.row]
+        return cell
     }
 }

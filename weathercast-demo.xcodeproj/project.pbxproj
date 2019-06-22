@@ -13,6 +13,7 @@
 		E241011222B57B1B00D18C3C /* CityOverviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E241011122B57B1B00D18C3C /* CityOverviewCell.swift */; };
 		E241011722B581AA00D18C3C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E241011522B581AA00D18C3C /* Main.storyboard */; };
 		E241011922B588A200D18C3C /* OpenPhotosAPIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E241011822B588A200D18C3C /* OpenPhotosAPIController.swift */; };
+		E24207BB22BEE84800B86498 /* DayForecastCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24207BA22BEE84800B86498 /* DayForecastCell.swift */; };
 		E25F61A122B4C98B00C08E50 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25F61A022B4C98B00C08E50 /* AppDelegate.swift */; };
 		E25F61A322B4C98B00C08E50 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25F61A222B4C98B00C08E50 /* MainViewController.swift */; };
 		E25F61A922B4C98B00C08E50 /* weathercast_demo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E25F61A722B4C98B00C08E50 /* weathercast_demo.xcdatamodeld */; };
@@ -31,7 +32,6 @@
 		E266F47722BD85A800F2A4A2 /* CitiesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E266F47622BD85A800F2A4A2 /* CitiesController.swift */; };
 		E281EFF322BE749D004F099A /* CityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E281EFF222BE749D004F099A /* CityDetailViewController.swift */; };
 		E281EFF622BE7EFB004F099A /* CellTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = E281EFF522BE7EFB004F099A /* CellTransition.swift */; };
-		E281EFFC22BEA073004F099A /* DayForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E281EFFB22BEA073004F099A /* DayForecastView.swift */; };
 		E2C414B522BBFC92006EEAA5 /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C414B422BBFC92006EEAA5 /* Screen.swift */; };
 		EB1423DE7A04B9FCF03B1FEA /* Pods_weathercast_demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BED7BD1347D8768680CA09B9 /* Pods_weathercast_demo.framework */; };
 /* End PBXBuildFile section */
@@ -63,6 +63,7 @@
 		E241011122B57B1B00D18C3C /* CityOverviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityOverviewCell.swift; sourceTree = "<group>"; };
 		E241011622B581AA00D18C3C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E241011822B588A200D18C3C /* OpenPhotosAPIController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenPhotosAPIController.swift; sourceTree = "<group>"; };
+		E24207BA22BEE84800B86498 /* DayForecastCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayForecastCell.swift; sourceTree = "<group>"; };
 		E25F619D22B4C98B00C08E50 /* weathercast-demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "weathercast-demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E25F61A022B4C98B00C08E50 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E25F61A222B4C98B00C08E50 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -89,7 +90,6 @@
 		E266F47622BD85A800F2A4A2 /* CitiesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesController.swift; sourceTree = "<group>"; };
 		E281EFF222BE749D004F099A /* CityDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityDetailViewController.swift; sourceTree = "<group>"; };
 		E281EFF522BE7EFB004F099A /* CellTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellTransition.swift; sourceTree = "<group>"; };
-		E281EFFB22BEA073004F099A /* DayForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayForecastView.swift; sourceTree = "<group>"; };
 		E2C414B422BBFC92006EEAA5 /* Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
 		E8E16E6FACC6EDFCF80BA955 /* Pods-weathercast-demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-weathercast-demo.debug.xcconfig"; path = "Target Support Files/Pods-weathercast-demo/Pods-weathercast-demo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -145,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				E241011122B57B1B00D18C3C /* CityOverviewCell.swift */,
+				E24207BA22BEE84800B86498 /* DayForecastCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -248,7 +249,6 @@
 		E281EFFA22BEA05E004F099A /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				E281EFFB22BEA073004F099A /* DayForecastView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -482,7 +482,6 @@
 				E25F61D822B4CE3000C08E50 /* OpenWeatherAPIController.swift in Sources */,
 				E26462F322B5AF0000F6EB80 /* UIImage+extension.swift in Sources */,
 				E266F47722BD85A800F2A4A2 /* CitiesController.swift in Sources */,
-				E281EFFC22BEA073004F099A /* DayForecastView.swift in Sources */,
 				E241011222B57B1B00D18C3C /* CityOverviewCell.swift in Sources */,
 				E281EFF322BE749D004F099A /* CityDetailViewController.swift in Sources */,
 				E2C414B522BBFC92006EEAA5 /* Screen.swift in Sources */,
@@ -490,6 +489,7 @@
 				E25F61A322B4C98B00C08E50 /* MainViewController.swift in Sources */,
 				E25F61A122B4C98B00C08E50 /* AppDelegate.swift in Sources */,
 				E241011922B588A200D18C3C /* OpenPhotosAPIController.swift in Sources */,
+				E24207BB22BEE84800B86498 /* DayForecastCell.swift in Sources */,
 				E281EFF622BE7EFB004F099A /* CellTransition.swift in Sources */,
 				E25F61DA22B4CF5700C08E50 /* WeatherDataFactory.swift in Sources */,
 				E25F61D622B4CE0800C08E50 /* CoreDataController.swift in Sources */,
