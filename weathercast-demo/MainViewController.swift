@@ -28,6 +28,7 @@ class MainViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
+        self.navigationController?.delegate = self
 
         let flowLayout = UICollectionViewFlowLayout()
 
@@ -42,7 +43,7 @@ class MainViewController: UICollectionViewController {
 
         collectionView.isPagingEnabled = true
         collectionView.setCollectionViewLayout(flowLayout, animated: false)
-        collectionView.contentInset = UIEdgeInsets(top: -flowLayout.headerReferenceSize.height, left: 0, bottom: 0, right: 0)
+        collectionView.contentInset = UIEdgeInsets(top: -flowLayout.headerReferenceSize.height, left: 0, bottom: 20, right: 0)
 
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -86,19 +87,19 @@ extension MainViewController {
         cell.cityName = self.cities[indexPath.row].name
 
         guard let forecasts = self.cities[indexPath.row].forecasts else { return cell }
-        guard let todayForecast = forecasts.first else { return cell }
-
-        let todayForecastDecorator = ForecastDecorator(forecast: todayForecast)
-        cell.timezone = todayForecastDecorator.timezone()
-        cell.temperatureLabel?.text = todayForecastDecorator.temperature(unit: .metric)
-        cell.weatherLabel.text = todayForecastDecorator.weather()
-        cell.weatherIcon.image = todayForecastDecorator.weatherIcon()
-        cell.minTemperatureIcon.image = todayForecastDecorator.minTemperatureIcon()
-        cell.minTemperatureLabel?.text = todayForecastDecorator.minTemperature(unit: .metric)
-        cell.maxTemperatureIcon.image = todayForecastDecorator.maxTemperatureIcon()
-        cell.maxTemperatureLabel?.text = todayForecastDecorator.maxTemperature(unit: .metric)
+        cell.forecasts = []
+        for forecast in forecasts {
+            cell.forecasts.append(forecast)
+        }
 
         return cell
+    }
+}
+
+extension MainViewController: UINavigationControllerDelegate {
+    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        let transition = CellTransition()
+        return transition
     }
 }
 

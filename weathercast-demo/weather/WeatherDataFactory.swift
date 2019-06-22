@@ -11,15 +11,9 @@ import CoreData
 
 class WeatherDataFactory {
     func parseAndBuildForecastsFrom(jsonData: Data) -> [Forecast] {
-        var appDelegate: AppDelegate?
-        DispatchQueue.main.sync {
-            appDelegate = UIApplication.shared.delegate as? AppDelegate
-        }
-        guard let delegate = appDelegate else { fatalError("Error: Couldn't access appDelegate") }
-
         var forecasts: [Forecast] = []
 
-        let managedContext = delegate.persistentContainer.viewContext
+        let managedContext = CoreDataController.shared.persistentContainer.viewContext
         guard let json = try! JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any],
             let list = json["list"] as? [[String: Any]] else { return forecasts }
 

@@ -1,16 +1,29 @@
 PODS:
   - Hippolyte (0.7.1)
+  - WeakArray (0.4)
 
 DEPENDENCIES:
   - Hippolyte
+  - WeakArray (from `https://github.com/n-studio/WeakArray.git`, branch `custom`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Hippolyte
 
+EXTERNAL SOURCES:
+  WeakArray:
+    :branch: custom
+    :git: https://github.com/n-studio/WeakArray.git
+
+CHECKOUT OPTIONS:
+  WeakArray:
+    :commit: da8a2271d830e16165a3937825f3269e186dc140
+    :git: https://github.com/n-studio/WeakArray.git
+
 SPEC CHECKSUMS:
   Hippolyte: 811df5756a74ff55b2b1313d4663f93b916f85b1
+  WeakArray: 114adeab0a438dfa71e0fd4c757770dd3b113a2c
 
-PODFILE CHECKSUM: 5b583ecdc435fcacd43c67d60a258ffb833b6634
+PODFILE CHECKSUM: 9c697fba91e40b4476c53f08c0c4dec622a53c17
 
 COCOAPODS: 1.7.2

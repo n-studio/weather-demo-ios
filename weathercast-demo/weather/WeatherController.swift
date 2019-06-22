@@ -10,7 +10,7 @@ import Foundation
 
 class WeatherController {
     let openWeatherAPIController = OpenWeatherAPIController()
-    let coreDataController = CoreDataController()
+    let coreDataController = CoreDataController.shared
     let weatherDataFactory = WeatherDataFactory()
 
     func fetchForecast(city: String, country: String, completion: @escaping (_ forecasts: [Forecast]) -> ()) {

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WeakArray
 
 class CityOverviewCell: UICollectionViewCell {
     @IBOutlet var cityLabel: UILabel!
@@ -19,6 +20,7 @@ class CityOverviewCell: UICollectionViewCell {
     @IBOutlet var maxTemperatureLabel: UILabel!
     @IBOutlet var minTemperatureIcon: UIImageView!
     @IBOutlet var minTemperatureLabel: UILabel!
+    @IBOutlet var weekForecastView: UIStackView!
 
     let cornerRadius: CGFloat = 20.0
     var timer: Timer?
@@ -54,6 +56,33 @@ class CityOverviewCell: UICollectionViewCell {
                         imageView.layer.cornerRadius = self.cornerRadius
                         imageView.layer.masksToBounds = true
                         self.backgroundView = imageView
+                    }
+                }
+            }
+        }
+    }
+
+    var forecasts: WeakArray<Forecast> = [] {
+        didSet {
+            if self.forecasts.count <= 0 {
+                return
+            }
+            guard let todayForecast = self.forecasts.first else { return }
+
+            let todayForecastDecorator = ForecastDecorator(forecast: todayForecast)
+            self.timezone = todayForecastDecorator.timezone()
+            self.temperatureLabel?.text = todayForecastDecorator.temperature(unit: .metric)
+            self.weatherLabel.text = todayForecastDecorator.weather()
+            self.weatherIcon.image = todayForecastDecorator.weatherIcon()
+            self.minTemperatureIcon.image = todayForecastDecorator.minTemperatureIcon()
+            self.minTemperatureLabel?.text = todayForecastDecorator.minTemperature(unit: .metric)
+            self.maxTemperatureIcon.image = todayForecastDecorator.maxTemperatureIcon()
+            self.maxTemperatureLabel?.text = todayForecastDecorator.maxTemperature(unit: .metric)
+
+            for (index, forecast) in forecasts.enumerated() {
+                if index < self.weekForecastView.arrangedSubviews.count {
+                    if let view = self.weekForecastView.arrangedSubviews[index] as? DayForecastView {
+                        view.forecast = forecast
                     }
                 }
             }
@@ -114,7 +143,8 @@ extension CityOverviewCell {
     }
 
     @objc func tickClock() {
-        self.dateLabel.text = dateFormatter.string(from: Date())
-        self.timeLabel.text = timeFormatter.string(from: Date())
+        let date = Date()
+        self.dateLabel.text = dateFormatter.string(from: date)
+        self.timeLabel.text = timeFormatter.string(from: date)
     }
 }
