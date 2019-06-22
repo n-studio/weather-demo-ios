@@ -26,4 +26,8 @@ class Screen {
     lazy var width: CGFloat = {
         return self.bounds.width
     }()
+
+    lazy var height: CGFloat = {
+        return self.bounds.height
+    }()
 }

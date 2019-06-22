@@ -10,7 +10,7 @@ import Foundation
 
 class OpenWeatherAPIController {
     private let defaultSession = URLSession(configuration: .default)
-    private var dataTask: URLSessionDataTask?
+    private var dataTasks: [String:URLSessionDataTask] = [:]
     typealias JSONResult = (Data) -> ()
 
     lazy var openWeatherMapApiKey: String = {
@@ -20,13 +20,13 @@ class OpenWeatherAPIController {
         return keys.value(forKey: "openWeatherMapApiKey") as! String
     }()
 
-    func requestForecast(zipcode: String, country: String, completion: @escaping JSONResult) {
-        dataTask?.cancel()
+    func requestForecast(city: String, country: String, completion: @escaping JSONResult) {
+        dataTasks["\(city),\(country)"]?.cancel()
         if var urlComponents = URLComponents(string: "http://api.openweathermap.org/data/2.5/forecast") {
-            urlComponents.query = "zip=\(zipcode),\(country)&appId=\(openWeatherMapApiKey)"
+            urlComponents.query = "q=\(city),\(country)&appId=\(openWeatherMapApiKey)"
             guard let url = urlComponents.url else { return }
-            dataTask = defaultSession.dataTask(with: url) { data, response, error in
-                defer { self.dataTask = nil }
+            dataTasks["\(city),\(country)"] = defaultSession.dataTask(with: url) { data, response, error in
+                defer { self.dataTasks["\(city),\(country)"] = nil }
 
                 if let error = error {
                     NSLog("Error: \(error.localizedDescription)")
@@ -36,6 +36,6 @@ class OpenWeatherAPIController {
                 }
             }
         }
-        dataTask?.resume()
+        dataTasks["\(city),\(country)"]?.resume()
     }
 }

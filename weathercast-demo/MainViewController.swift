@@ -10,7 +10,14 @@ import UIKit
 
 class MainViewController: UICollectionViewController {
     let weatherController = WeatherController()
+    let minimumLineSpacing: CGFloat = 88.0
+    let cellMargins = CGSize(width: 20, height: 88.0)
     var cities: [City]
+
+    lazy var itemSize: CGSize = {
+        let screen = Screen(view: self.view)
+        return CGSize(width: screen.width - cellMargins.width, height: screen.height - cellMargins.height)
+    }()
 
     required init?(coder aDecoder: NSCoder) {
         let controller = CitiesController()
@@ -25,11 +32,17 @@ class MainViewController: UICollectionViewController {
         let flowLayout = UICollectionViewFlowLayout()
 
         flowLayout.scrollDirection = .vertical
-        flowLayout.minimumInteritemSpacing = 44
-        flowLayout.minimumLineSpacing = 44
+        if #available(iOS 11.0, *) {
+            flowLayout.headerReferenceSize = CGSize(width: 0, height: UIApplication.shared.delegate?.window??.safeAreaInsets.top ?? UIApplication.shared.statusBarFrame.size.height)
+        } else {
+            flowLayout.headerReferenceSize = CGSize(width: 0, height: UIApplication.shared.statusBarFrame.size.height)
+        }
+        flowLayout.minimumLineSpacing = minimumLineSpacing
+        flowLayout.itemSize = itemSize
 
         collectionView.isPagingEnabled = true
-        collectionView.collectionViewLayout = flowLayout
+        collectionView.setCollectionViewLayout(flowLayout, animated: false)
+        collectionView.contentInset = UIEdgeInsets(top: -flowLayout.headerReferenceSize.height, left: 0, bottom: 0, right: 0)
 
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -42,8 +55,9 @@ class MainViewController: UICollectionViewController {
         // Fetch data for all cities
         let serialQueue = DispatchQueue(label: "SerialQueue")
         for index in 0..<cities.count {
-            let zipcode = self.cities[index].zipcode
-            weatherController.fetchForecast(zipcode: zipcode) { (forecasts) in
+            let city = self.cities[index].name
+            let country = self.cities[index].country
+            weatherController.fetchForecast(city: city, country: country) { (forecasts) in
                 serialQueue.sync {
                     self.cities[index].forecasts = forecasts
                 }
@@ -75,18 +89,23 @@ extension MainViewController {
         guard let todayForecast = forecasts.first else { return cell }
 
         let todayForecastDecorator = ForecastDecorator(forecast: todayForecast)
+        cell.timezone = todayForecastDecorator.timezone()
         cell.temperatureLabel?.text = todayForecastDecorator.temperature(unit: .metric)
+        cell.weatherLabel.text = todayForecastDecorator.weather()
+        cell.weatherIcon.image = todayForecastDecorator.weatherIcon()
+        cell.minTemperatureIcon.image = todayForecastDecorator.minTemperatureIcon()
+        cell.minTemperatureLabel?.text = todayForecastDecorator.minTemperature(unit: .metric)
+        cell.maxTemperatureIcon.image = todayForecastDecorator.maxTemperatureIcon()
+        cell.maxTemperatureLabel?.text = todayForecastDecorator.maxTemperature(unit: .metric)
 
         return cell
     }
 }
 
-// MARK:
+// MARK: UICollectionViewDelegateFlowLayout
 
 extension MainViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let screen = Screen(view: self.view)
-        let margin: CGFloat = 20
-        return CGSize(width: screen.width - margin, height: (screen.width - margin) / screen.aspectRatio)
+        return itemSize
     }
 }
