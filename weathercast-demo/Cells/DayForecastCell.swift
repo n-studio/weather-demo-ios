@@ -18,8 +18,6 @@ class DayForecastCell: UICollectionViewCell {
         super.init(coder: aDecoder)
     }
 
-    
-
     weak var forecast: Forecast? {
         didSet {
             guard let forecast = self.forecast else { return }
@@ -29,5 +27,11 @@ class DayForecastCell: UICollectionViewCell {
             self.tempMinLabel?.text = forecastDecorator.temperatureMin(unit: .metric)
             self.tempMaxLabel?.text = forecastDecorator.temperatureMax(unit: .metric)
         }
+    }
+
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+
+        self.contentView.addShadow(opacity: 0.5)
     }
 }

@@ -103,15 +103,7 @@ class CityOverviewCell: UICollectionViewCell {
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
 
-        for view in self.contentView.subviews {
-            if view is UILabel || view is UIImageView {
-                view.layer.shadowColor = UIColor.black.cgColor
-                view.layer.shadowOffset = CGSize(width: 0, height: 0)
-                view.layer.shadowRadius = 3.0
-                view.layer.shadowOpacity = 1.0
-                view.layer.masksToBounds = false
-            }
-        }
+        self.contentView.addShadow()
 
         self.weekForecastView.dataSource = self
 
@@ -147,12 +139,12 @@ extension CityOverviewCell {
 extension CityOverviewCell: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return forecasts.count
+        return [forecasts.count - 1, 5].min() ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DayForecastCell", for: indexPath) as! DayForecastCell
-        cell.forecast = forecasts[indexPath.row]
+        cell.forecast = forecasts[indexPath.row + 1]
         return cell
     }
 }

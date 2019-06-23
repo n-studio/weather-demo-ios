@@ -32,6 +32,7 @@
 		E266F47722BD85A800F2A4A2 /* CitiesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E266F47622BD85A800F2A4A2 /* CitiesController.swift */; };
 		E281EFF322BE749D004F099A /* CityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E281EFF222BE749D004F099A /* CityDetailViewController.swift */; };
 		E281EFF622BE7EFB004F099A /* CellTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = E281EFF522BE7EFB004F099A /* CellTransition.swift */; };
+		E2B1965722BF90DA0051E7E2 /* UIView+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B1965622BF90DA0051E7E2 /* UIView+extension.swift */; };
 		E2C414B522BBFC92006EEAA5 /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C414B422BBFC92006EEAA5 /* Screen.swift */; };
 		EB1423DE7A04B9FCF03B1FEA /* Pods_weathercast_demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BED7BD1347D8768680CA09B9 /* Pods_weathercast_demo.framework */; };
 /* End PBXBuildFile section */
@@ -90,6 +91,7 @@
 		E266F47622BD85A800F2A4A2 /* CitiesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesController.swift; sourceTree = "<group>"; };
 		E281EFF222BE749D004F099A /* CityDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityDetailViewController.swift; sourceTree = "<group>"; };
 		E281EFF522BE7EFB004F099A /* CellTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellTransition.swift; sourceTree = "<group>"; };
+		E2B1965622BF90DA0051E7E2 /* UIView+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+extension.swift"; sourceTree = "<group>"; };
 		E2C414B422BBFC92006EEAA5 /* Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
 		E8E16E6FACC6EDFCF80BA955 /* Pods-weathercast-demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-weathercast-demo.debug.xcconfig"; path = "Target Support Files/Pods-weathercast-demo/Pods-weathercast-demo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -234,6 +236,7 @@
 			isa = PBXGroup;
 			children = (
 				E26462F222B5AF0000F6EB80 /* UIImage+extension.swift */,
+				E2B1965622BF90DA0051E7E2 /* UIView+extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -491,6 +494,7 @@
 				E241011922B588A200D18C3C /* OpenPhotosAPIController.swift in Sources */,
 				E24207BB22BEE84800B86498 /* DayForecastCell.swift in Sources */,
 				E281EFF622BE7EFB004F099A /* CellTransition.swift in Sources */,
+				E2B1965722BF90DA0051E7E2 /* UIView+extension.swift in Sources */,
 				E25F61DA22B4CF5700C08E50 /* WeatherDataFactory.swift in Sources */,
 				E25F61D622B4CE0800C08E50 /* CoreDataController.swift in Sources */,
 				E241010E22B4F6EF00D18C3C /* ForecastDecorator.swift in Sources */,
