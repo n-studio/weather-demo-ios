@@ -96,6 +96,7 @@ extension MainViewController {
         cell.cityName = self.cities[indexPath.row].name
 
         guard let forecasts = self.cities[indexPath.row].forecasts else { return cell }
+        
         cell.forecasts = []
         for forecast in forecasts {
             cell.forecasts.append(forecast)

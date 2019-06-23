@@ -20,12 +20,13 @@
         <attribute name="tempMin" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="weatherDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="weatherIcon" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="weatherId" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="weatherMain" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="windDeg" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="windSpeed" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
     </entity>
     <elements>
         <element name="CurrentWeather" positionX="-54" positionY="0" width="128" height="60"/>
-        <element name="Forecast" positionX="-63" positionY="-18" width="128" height="330"/>
+        <element name="Forecast" positionX="-63" positionY="-18" width="128" height="345"/>
     </elements>
 </model>

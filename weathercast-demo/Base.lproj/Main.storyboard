@@ -91,7 +91,7 @@
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="a6d-fJ-8Op">
-                                            <rect key="frame" x="82" y="458.5" width="302" height="34.5"/>
+                                            <rect key="frame" x="82" y="458.5" width="312" height="34.5"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="29"/>
                                             <color key="textColor" red="0.99473684210000002" green="0.98947368420000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -224,7 +224,7 @@
                                     <constraint firstAttribute="trailing" secondItem="2bW-6H-aaD" secondAttribute="trailing" constant="30" id="54k-3v-g84"/>
                                     <constraint firstItem="iLF-7N-ddS" firstAttribute="leading" secondItem="i4E-Te-Maa" secondAttribute="leading" constant="20" id="5oa-gk-bEd"/>
                                     <constraint firstItem="tRY-JO-pb2" firstAttribute="top" secondItem="6BM-Ua-RCx" secondAttribute="bottom" constant="20" id="A7b-lj-85E"/>
-                                    <constraint firstAttribute="trailing" secondItem="a6d-fJ-8Op" secondAttribute="trailing" constant="30" id="Dtz-IQ-PWS"/>
+                                    <constraint firstAttribute="trailing" secondItem="a6d-fJ-8Op" secondAttribute="trailing" constant="20" id="Dtz-IQ-PWS"/>
                                     <constraint firstItem="iLF-7N-ddS" firstAttribute="top" secondItem="2bW-6H-aaD" secondAttribute="bottom" constant="40" id="GWd-lZ-2EZ"/>
                                     <constraint firstItem="a6d-fJ-8Op" firstAttribute="bottom" secondItem="6BM-Ua-RCx" secondAttribute="bottom" id="GaU-c6-hPQ"/>
                                     <constraint firstItem="hHf-91-HPG" firstAttribute="centerX" secondItem="i4E-Te-Maa" secondAttribute="centerX" id="Lgi-U3-uwR"/>

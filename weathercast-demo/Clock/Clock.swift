@@ -6,7 +6,7 @@
 //  Copyright © 2019 Solfanto, Inc. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 protocol ClockDelegate {
     func clockDidTick(dateString: String, timeString: String)

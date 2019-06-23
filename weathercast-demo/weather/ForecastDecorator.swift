@@ -26,11 +26,19 @@ class ForecastDecorator {
     }
 
     func weather() -> String {
-        return forecast.weatherMain ?? ""
+        return forecast.weatherDescription?.capitalizingFirstLetter() ?? ""
     }
 
-    func weatherIcon() -> UIImage? {
-        guard let iconName = forecast.weatherIcon else { return nil }
+    func weatherIcon(forceDayTime: Bool = false) -> UIImage? {
+        guard let originalIconName = forecast.weatherIcon else { return nil }
+        let iconName: String
+        if forceDayTime {
+            // Convert night to day
+            iconName = originalIconName.replacingOccurrences(of: "n", with: "d")
+        }
+        else {
+            iconName = originalIconName
+        }
         let image = UIImage(imageLiteralResourceName: iconName)
         return image.withRenderingMode(.alwaysTemplate)
     }
