@@ -15,7 +15,7 @@ class OpenPhotosAPIController {
         config.urlCache = nil
         return URLSession(configuration: config)
     }()
-    private var dataTask: URLSessionDataTask?
+    private var dataTasks: [String:URLSessionDataTask] = [:]
     typealias StringResult = (String) -> ()
     typealias ImageResult = (UIImage) -> ()
 
@@ -27,12 +27,12 @@ class OpenPhotosAPIController {
     }()
 
     func searchPhoto(query: String, completion: @escaping StringResult) {
-        dataTask?.cancel()
+        dataTasks["\(query)"]?.cancel()
         if var urlComponents = URLComponents(string: "https://api.unsplash.com/search/photos") {
             urlComponents.query = "query=\(query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)&page=1&per_page=1&client_id=\(openPhotosApiKey)"
             guard let url = urlComponents.url else { return }
-            dataTask = cachedSession.dataTask(with: url) { data, response, error in
-                defer { self.dataTask = nil }
+            dataTasks["\(query)"] = cachedSession.dataTask(with: url) { data, response, error in
+                defer { self.dataTasks["\(query)"] = nil }
 
                 guard let data = data, let response = response as? HTTPURLResponse, response.statusCode == 200 else { return }
                 guard let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else { return }
@@ -41,21 +41,21 @@ class OpenPhotosAPIController {
                 completion(url)
             }
         }
-        dataTask?.resume()
+        dataTasks["\(query)"]?.resume()
     }
 
     func getPhoto(urlString: String, completion: @escaping ImageResult) {
-        dataTask?.cancel()
+        dataTasks["\(urlString)"]?.cancel()
         if var urlComponents = URLComponents(string: urlString) {
             guard let url = urlComponents.url else { return }
-            dataTask = cachedSession.dataTask(with: url) { data, response, error in
-                defer { self.dataTask = nil }
+            dataTasks["\(urlString)"] = cachedSession.dataTask(with: url) { data, response, error in
+                defer { self.dataTasks["\(urlString)"] = nil }
 
                 guard let data = data else { return }
                 guard let image = UIImage(data: data) else { return }
                 completion(image)
             }
         }
-        dataTask?.resume()
+        dataTasks["\(urlString)"]?.resume()
     }
 }

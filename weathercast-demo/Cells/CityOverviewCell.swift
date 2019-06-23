@@ -26,10 +26,14 @@ class CityOverviewCell: UICollectionViewCell {
     let cornerRadius: CGFloat = 20.0
     var timezone: TimeZone = TimeZone.current {
         didSet {
+            clock?.stopClock()
+            clock = Clock()
             clock?.timezone = timezone
+            clock?.delegate = self
+            clock?.startClock()
         }
     }
-    var clock: Clock? = Clock()
+    var clock: Clock?
 
     let openPhotosApiController = OpenPhotosAPIController()
     var cityName: String? {
@@ -100,9 +104,6 @@ class CityOverviewCell: UICollectionViewCell {
         self.temperatureMaxMinStackView?.addShadow()
 
         self.weekForecastView?.dataSource = self
-
-        clock?.delegate = self
-        clock?.startClock()
     }
 
     override func prepareForReuse() {
@@ -117,6 +118,8 @@ class CityOverviewCell: UICollectionViewCell {
         self.weatherLabel?.text = nil
         self.temperatureMaxLabel?.text = nil
         self.temperatureMinLabel?.text = nil
+        clock?.stopClock()
+        self.clock = nil
     }
 
     deinit {
