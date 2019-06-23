@@ -1,3 +1,9 @@
+# Install
+
+* `gem install cocoapods`
+* `pod install`
+* Open the xcworkspace file
+
 # Weathercast
 
 * 5-days weather forecast for Paris, London and Tokyo

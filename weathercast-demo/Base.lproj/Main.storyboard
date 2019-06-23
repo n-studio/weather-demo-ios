@@ -76,8 +76,8 @@
                                             <color key="textColor" red="0.99473684210000002" green="0.98947368420000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--°" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="2bW-6H-aaD">
-                                            <rect key="frame" x="30" y="526.5" width="354" height="81"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--°" lineBreakMode="headTruncation" minimumScaleFactor="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="2bW-6H-aaD">
+                                            <rect key="frame" x="30" y="526.5" width="244" height="81"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="90"/>
                                             <color key="textColor" red="0.99473684210000002" green="0.98947368420000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -91,7 +91,7 @@
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="a6d-fJ-8Op">
-                                            <rect key="frame" x="82" y="444" width="312" height="34.5"/>
+                                            <rect key="frame" x="82" y="444" width="302" height="34.5"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="29"/>
                                             <color key="textColor" red="0.99473684210000002" green="0.98947368420000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -164,7 +164,43 @@
                                                         <constraint firstItem="hQf-IT-W0m" firstAttribute="height" secondItem="I6u-eC-9jS" secondAttribute="height" id="VKZ-Bb-g2z"/>
                                                         <constraint firstItem="XIp-oH-CCe" firstAttribute="leading" secondItem="I6u-eC-9jS" secondAttribute="trailing" id="VxV-1S-VEI"/>
                                                         <constraint firstItem="hQf-IT-W0m" firstAttribute="leading" secondItem="XIp-oH-CCe" secondAttribute="trailing" id="a6r-Fn-1M5"/>
-                                                        <constraint firstItem="XIp-oH-CCe" firstAttribute="top" secondItem="fhr-fX-iDe" secondAttribute="bottom" constant="10" id="eub-Yk-7te"/>
+                                                        <constraint firstItem="XIp-oH-CCe" firstAttribute="top" secondItem="fhr-fX-iDe" secondAttribute="bottom" constant="10" id="eub-Yk-7te" customClass="NSLayoutHelper" customModule="weathercast_demo" customModuleProvider="target">
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="iPhone4s">
+                                                                    <real key="value" value="4"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="iPhoneSE">
+                                                                    <real key="value" value="4"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="iPhone8">
+                                                                    <real key="value" value="10"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="iPhone8Plus">
+                                                                    <real key="value" value="10"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="iPhoneXS">
+                                                                    <real key="value" value="10"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="iPhoneXR">
+                                                                    <real key="value" value="10"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="iPhoneXMax">
+                                                                    <real key="value" value="10"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="iPadMini">
+                                                                    <real key="value" value="10"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="iPadPro9_7">
+                                                                    <real key="value" value="10"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="iPadPro10_5">
+                                                                    <real key="value" value="10"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="iPadPro12_9">
+                                                                    <real key="value" value="10"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </constraint>
                                                         <constraint firstAttribute="trailing" secondItem="ZTc-tO-ZGL" secondAttribute="trailing" constant="10" id="iE0-dP-2zG"/>
                                                         <constraint firstItem="I6u-eC-9jS" firstAttribute="centerY" secondItem="XIp-oH-CCe" secondAttribute="centerY" id="j6S-JG-MY8"/>
                                                         <constraint firstItem="fhr-fX-iDe" firstAttribute="top" secondItem="ZTc-tO-ZGL" secondAttribute="bottom" constant="10" id="mP6-Uz-9Cd"/>
@@ -219,28 +255,109 @@
                                 </view>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="iLF-7N-ddS" secondAttribute="bottom" constant="30" id="0D3-1E-RWc"/>
+                                    <constraint firstAttribute="bottom" secondItem="iLF-7N-ddS" secondAttribute="bottom" constant="30" id="0D3-1E-RWc" customClass="NSLayoutHelper" customModule="weathercast_demo" customModuleProvider="target">
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="iPhone4s">
+                                                <real key="value" value="20"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="iPhoneSE">
+                                                <real key="value" value="20"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </constraint>
                                     <constraint firstAttribute="trailing" secondItem="iLF-7N-ddS" secondAttribute="trailing" id="4is-jM-SIc"/>
-                                    <constraint firstAttribute="trailing" secondItem="2bW-6H-aaD" secondAttribute="trailing" constant="30" id="54k-3v-g84"/>
+                                    <constraint firstAttribute="trailing" secondItem="2bW-6H-aaD" secondAttribute="trailing" constant="140" id="54k-3v-g84"/>
                                     <constraint firstItem="iLF-7N-ddS" firstAttribute="leading" secondItem="i4E-Te-Maa" secondAttribute="leading" id="5oa-gk-bEd"/>
                                     <constraint firstItem="tRY-JO-pb2" firstAttribute="top" secondItem="6BM-Ua-RCx" secondAttribute="bottom" constant="20" id="A7b-lj-85E"/>
-                                    <constraint firstAttribute="trailing" secondItem="a6d-fJ-8Op" secondAttribute="trailing" constant="20" id="Dtz-IQ-PWS"/>
-                                    <constraint firstItem="iLF-7N-ddS" firstAttribute="top" secondItem="2bW-6H-aaD" secondAttribute="bottom" constant="40" id="GWd-lZ-2EZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="a6d-fJ-8Op" secondAttribute="trailing" constant="30" id="Dtz-IQ-PWS"/>
+                                    <constraint firstItem="iLF-7N-ddS" firstAttribute="top" secondItem="2bW-6H-aaD" secondAttribute="bottom" constant="40" id="GWd-lZ-2EZ" customClass="NSLayoutHelper" customModule="weathercast_demo" customModuleProvider="target">
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="iPhone4s">
+                                                <real key="value" value="20"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="iPhoneSE">
+                                                <real key="value" value="20"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="iPhone8">
+                                                <real key="value" value="40"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="iPhone8Plus">
+                                                <real key="value" value="40"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="iPhoneXS">
+                                                <real key="value" value="40"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="iPhoneXR">
+                                                <real key="value" value="40"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="iPhoneXMax">
+                                                <real key="value" value="40"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="iPadMini">
+                                                <real key="value" value="40"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="iPadPro9_7">
+                                                <real key="value" value="40"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="iPadPro10_5">
+                                                <real key="value" value="40"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="iPadPro12_9">
+                                                <real key="value" value="40"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </constraint>
                                     <constraint firstItem="a6d-fJ-8Op" firstAttribute="bottom" secondItem="6BM-Ua-RCx" secondAttribute="bottom" id="GaU-c6-hPQ"/>
                                     <constraint firstItem="hHf-91-HPG" firstAttribute="centerX" secondItem="i4E-Te-Maa" secondAttribute="centerX" id="Lgi-U3-uwR"/>
-                                    <constraint firstItem="2bW-6H-aaD" firstAttribute="top" secondItem="tRY-JO-pb2" secondAttribute="bottom" constant="10" id="M0i-Mm-qbI"/>
                                     <constraint firstItem="tRY-JO-pb2" firstAttribute="leading" secondItem="2bW-6H-aaD" secondAttribute="leading" id="P3u-Bf-0Nz"/>
                                     <constraint firstItem="2bW-6H-aaD" firstAttribute="height" secondItem="i4E-Te-Maa" secondAttribute="height" multiplier="0.1" id="SV4-Oc-hfv"/>
                                     <constraint firstItem="2bW-6H-aaD" firstAttribute="leading" secondItem="i4E-Te-Maa" secondAttribute="leading" constant="30" id="Sae-EJ-cL4"/>
                                     <constraint firstItem="Uti-9m-lfK" firstAttribute="top" secondItem="hHf-91-HPG" secondAttribute="bottom" constant="15" id="Z6b-ZT-iJb"/>
                                     <constraint firstItem="Uti-9m-lfK" firstAttribute="centerX" secondItem="i4E-Te-Maa" secondAttribute="centerX" id="bLX-ma-qcj"/>
+                                    <constraint firstItem="2bW-6H-aaD" firstAttribute="top" secondItem="tRY-JO-pb2" secondAttribute="bottom" constant="10" id="c7e-vm-xXX"/>
                                     <constraint firstItem="xjk-II-BcJ" firstAttribute="width" secondItem="i4E-Te-Maa" secondAttribute="width" multiplier="0.6" id="cjX-vI-Uyv"/>
                                     <constraint firstItem="6BM-Ua-RCx" firstAttribute="leading" secondItem="tRY-JO-pb2" secondAttribute="leading" id="dk2-Fx-wNC"/>
                                     <constraint firstItem="a6d-fJ-8Op" firstAttribute="leading" secondItem="6BM-Ua-RCx" secondAttribute="trailing" constant="8" id="ghl-P9-Fnl"/>
                                     <constraint firstItem="Uti-9m-lfK" firstAttribute="width" secondItem="i4E-Te-Maa" secondAttribute="width" id="keE-CW-bVo"/>
                                     <constraint firstItem="xjk-II-BcJ" firstAttribute="top" secondItem="Uti-9m-lfK" secondAttribute="bottom" constant="-2" id="lg9-BA-YIY"/>
                                     <constraint firstItem="hHf-91-HPG" firstAttribute="width" secondItem="i4E-Te-Maa" secondAttribute="width" id="rkL-K0-U7P"/>
-                                    <constraint firstItem="hHf-91-HPG" firstAttribute="top" secondItem="i4E-Te-Maa" secondAttribute="top" multiplier="0.8" constant="48" id="vcG-aF-b7U"/>
+                                    <constraint firstItem="hHf-91-HPG" firstAttribute="top" secondItem="i4E-Te-Maa" secondAttribute="top" constant="48" id="vcG-aF-b7U" customClass="NSLayoutHelper" customModule="weathercast_demo" customModuleProvider="target">
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="iPhone4s">
+                                                <real key="value" value="30"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="iPhoneSE">
+                                                <real key="value" value="30"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="iPhone8">
+                                                <real key="value" value="48"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="iPhone8Plus">
+                                                <real key="value" value="48"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="iPhoneXS">
+                                                <real key="value" value="48"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="iPhoneXR">
+                                                <real key="value" value="48"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="iPhoneXMax">
+                                                <real key="value" value="48"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="iPadMini">
+                                                <real key="value" value="48"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="iPadPro9_7">
+                                                <real key="value" value="48"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="iPadPro10_5">
+                                                <real key="value" value="48"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="iPadPro12_9">
+                                                <real key="value" value="48"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </constraint>
                                     <constraint firstItem="xjk-II-BcJ" firstAttribute="centerX" secondItem="i4E-Te-Maa" secondAttribute="centerX" id="w3L-vx-npW"/>
                                 </constraints>
                                 <connections>

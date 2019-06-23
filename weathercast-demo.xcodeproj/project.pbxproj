@@ -12,6 +12,10 @@
 		E2165F2522BFA01500CB1648 /* Collection+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2165F2422BFA01500CB1648 /* Collection+extension.swift */; };
 		E2165F2722BFA3FF00CB1648 /* Float+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2165F2622BFA3FF00CB1648 /* Float+extension.swift */; };
 		E2165F2922BFAFA400CB1648 /* String+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2165F2822BFAFA400CB1648 /* String+extension.swift */; };
+		E2165F2C22BFC02C00CB1648 /* NSLayoutHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2165F2B22BFC02C00CB1648 /* NSLayoutHelper.swift */; };
+		E2165F2E22BFC07E00CB1648 /* DeviceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2165F2D22BFC07E00CB1648 /* DeviceHelper.swift */; };
+		E2165F3022BFC1A100CB1648 /* UILabelHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2165F2F22BFC1A100CB1648 /* UILabelHelper.swift */; };
+		E2165F3222BFC1E100CB1648 /* UIButtonHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2165F3122BFC1E100CB1648 /* UIButtonHelper.swift */; };
 		E241010E22B4F6EF00D18C3C /* ForecastDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E241010D22B4F6EF00D18C3C /* ForecastDecorator.swift */; };
 		E241010F22B502EB00D18C3C /* TemperatureDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25F61DB22B4D1DE00C08E50 /* TemperatureDecorator.swift */; };
 		E241011222B57B1B00D18C3C /* CityOverviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E241011122B57B1B00D18C3C /* CityOverviewCell.swift */; };
@@ -68,6 +72,10 @@
 		E2165F2422BFA01500CB1648 /* Collection+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+extension.swift"; sourceTree = "<group>"; };
 		E2165F2622BFA3FF00CB1648 /* Float+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Float+extension.swift"; sourceTree = "<group>"; };
 		E2165F2822BFAFA400CB1648 /* String+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+extension.swift"; sourceTree = "<group>"; };
+		E2165F2B22BFC02C00CB1648 /* NSLayoutHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLayoutHelper.swift; sourceTree = "<group>"; };
+		E2165F2D22BFC07E00CB1648 /* DeviceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHelper.swift; sourceTree = "<group>"; };
+		E2165F2F22BFC1A100CB1648 /* UILabelHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelHelper.swift; sourceTree = "<group>"; };
+		E2165F3122BFC1E100CB1648 /* UIButtonHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonHelper.swift; sourceTree = "<group>"; };
 		E241010D22B4F6EF00D18C3C /* ForecastDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastDecorator.swift; sourceTree = "<group>"; };
 		E241011122B57B1B00D18C3C /* CityOverviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityOverviewCell.swift; sourceTree = "<group>"; };
 		E241011622B581AA00D18C3C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -151,6 +159,17 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		E2165F2A22BFC00300CB1648 /* AutoLayout */ = {
+			isa = PBXGroup;
+			children = (
+				E2165F2D22BFC07E00CB1648 /* DeviceHelper.swift */,
+				E2165F2B22BFC02C00CB1648 /* NSLayoutHelper.swift */,
+				E2165F3122BFC1E100CB1648 /* UIButtonHelper.swift */,
+				E2165F2F22BFC1A100CB1648 /* UILabelHelper.swift */,
+			);
+			path = AutoLayout;
+			sourceTree = "<group>";
+		};
 		E241011022B57AF500D18C3C /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -189,6 +208,7 @@
 				E25F61A022B4C98B00C08E50 /* AppDelegate.swift */,
 				E25F61A222B4C98B00C08E50 /* MainViewController.swift */,
 				E281EFF222BE749D004F099A /* CityDetailViewController.swift */,
+				E2165F2A22BFC00300CB1648 /* AutoLayout */,
 				E241011022B57AF500D18C3C /* Cells */,
 				E2B1965822BF92BC0051E7E2 /* Clock */,
 				E26462F122B5AEF100F6EB80 /* Extensions */,
@@ -502,8 +522,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2165F2C22BFC02C00CB1648 /* NSLayoutHelper.swift in Sources */,
 				E25F61D822B4CE3000C08E50 /* OpenWeatherAPIController.swift in Sources */,
 				E26462F322B5AF0000F6EB80 /* UIImage+extension.swift in Sources */,
+				E2165F3022BFC1A100CB1648 /* UILabelHelper.swift in Sources */,
 				E266F47722BD85A800F2A4A2 /* CitiesController.swift in Sources */,
 				E241011222B57B1B00D18C3C /* CityOverviewCell.swift in Sources */,
 				E2165F2322BF92E500CB1648 /* Clock.swift in Sources */,
@@ -513,7 +535,9 @@
 				E25F61DC22B4D1DE00C08E50 /* TemperatureDecorator.swift in Sources */,
 				E25F61A322B4C98B00C08E50 /* MainViewController.swift in Sources */,
 				E25F61A122B4C98B00C08E50 /* AppDelegate.swift in Sources */,
+				E2165F3222BFC1E100CB1648 /* UIButtonHelper.swift in Sources */,
 				E241011922B588A200D18C3C /* OpenPhotosAPIController.swift in Sources */,
+				E2165F2E22BFC07E00CB1648 /* DeviceHelper.swift in Sources */,
 				E24207BB22BEE84800B86498 /* DayForecastCell.swift in Sources */,
 				E2165F2722BFA3FF00CB1648 /* Float+extension.swift in Sources */,
 				E281EFF622BE7EFB004F099A /* CellTransition.swift in Sources */,
