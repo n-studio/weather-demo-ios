@@ -34,16 +34,22 @@ class MainViewController: UICollectionViewController {
 
         flowLayout.scrollDirection = .vertical
         if #available(iOS 11.0, *) {
-            flowLayout.headerReferenceSize = CGSize(width: 0, height: UIApplication.shared.delegate?.window??.safeAreaInsets.top ?? UIApplication.shared.statusBarFrame.size.height)
+            let height = UIApplication.shared.delegate?.window??.safeAreaInsets.top
+            flowLayout.headerReferenceSize = CGSize(width: 0,
+                                                    height: height ?? UIApplication.shared.statusBarFrame.size.height)
         } else {
-            flowLayout.headerReferenceSize = CGSize(width: 0, height: UIApplication.shared.statusBarFrame.size.height)
+            flowLayout.headerReferenceSize = CGSize(width: 0,
+                                                    height: UIApplication.shared.statusBarFrame.size.height)
         }
         flowLayout.minimumLineSpacing = minimumLineSpacing
         flowLayout.itemSize = itemSize
 
         collectionView.isPagingEnabled = true
         collectionView.setCollectionViewLayout(flowLayout, animated: false)
-        collectionView.contentInset = UIEdgeInsets(top: -flowLayout.headerReferenceSize.height, left: 0, bottom: 20, right: 0)
+        collectionView.contentInset = UIEdgeInsets(top: -flowLayout.headerReferenceSize.height,
+                                                   left: 0,
+                                                   bottom: 20,
+                                                   right: 0)
 
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -77,12 +83,15 @@ extension MainViewController {
         return 1
     }
 
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView,
+                                 numberOfItemsInSection section: Int) -> Int {
         return self.cities.count
     }
 
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CityOverviewCell", for: indexPath) as! CityOverviewCell
+    override func collectionView(_ collectionView: UICollectionView,
+                                 cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CityOverviewCell",
+                                                      for: indexPath) as! CityOverviewCell
 
         cell.cityName = self.cities[indexPath.row].name
 
@@ -99,7 +108,9 @@ extension MainViewController {
 // MARK: UICollectionViewDelegateFlowLayout
 
 extension MainViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
         return itemSize
     }
 }
@@ -107,7 +118,10 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
 // MARK: UINavigationControllerDelegate
 
 extension MainViewController: UINavigationControllerDelegate {
-    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func navigationController(_ navigationController: UINavigationController,
+                              animationControllerFor operation: UINavigationController.Operation,
+                              from fromVC: UIViewController,
+                              to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         let transition = CellTransition()
         return transition
     }
