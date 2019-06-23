@@ -16,10 +16,10 @@ class CityOverviewCell: UICollectionViewCell {
     @IBOutlet var temperatureLabel: UILabel!
     @IBOutlet var weatherIcon: UIImageView!
     @IBOutlet var weatherLabel: UILabel!
-    @IBOutlet var maxTemperatureIcon: UIImageView!
-    @IBOutlet var maxTemperatureLabel: UILabel!
-    @IBOutlet var minTemperatureIcon: UIImageView!
-    @IBOutlet var minTemperatureLabel: UILabel!
+    @IBOutlet var temperatureMaxIcon: UIImageView!
+    @IBOutlet var temperatureMaxLabel: UILabel!
+    @IBOutlet var temperatureMinIcon: UIImageView!
+    @IBOutlet var temperatureMinLabel: UILabel!
     @IBOutlet var weekForecastView: UICollectionView!
 
     let cornerRadius: CGFloat = 20.0
@@ -74,10 +74,10 @@ class CityOverviewCell: UICollectionViewCell {
             self.temperatureLabel?.text = todayForecastDecorator.temperature(unit: .metric)
             self.weatherLabel.text = todayForecastDecorator.weather()
             self.weatherIcon.image = todayForecastDecorator.weatherIcon()
-            self.minTemperatureIcon.image = todayForecastDecorator.minTemperatureIcon()
-            self.minTemperatureLabel?.text = todayForecastDecorator.minTemperature(unit: .metric)
-            self.maxTemperatureIcon.image = todayForecastDecorator.maxTemperatureIcon()
-            self.maxTemperatureLabel?.text = todayForecastDecorator.maxTemperature(unit: .metric)
+            self.temperatureMinIcon.image = todayForecastDecorator.temperatureMinIcon()
+            self.temperatureMinLabel?.text = todayForecastDecorator.temperatureMin(unit: .metric)
+            self.temperatureMaxIcon.image = todayForecastDecorator.temperatureMaxIcon()
+            self.temperatureMaxLabel?.text = todayForecastDecorator.temperatureMax(unit: .metric)
 
             self.weekForecastView.reloadData()
         }
@@ -112,9 +112,6 @@ class CityOverviewCell: UICollectionViewCell {
                 view.layer.masksToBounds = false
             }
         }
-        self.minTemperatureIcon.tintColor = .white
-        self.maxTemperatureIcon.tintColor = .white
-        self.weatherIcon.tintColor = .white
 
         self.weekForecastView.dataSource = self
 

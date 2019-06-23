@@ -11,6 +11,12 @@ import UIKit
 class ForecastDecorator {
     let forecast: Forecast
 
+    lazy private var weekdayFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEEE" // Monday, Tuesday, ...
+        return formatter
+    }()
+
     init(forecast: Forecast) {
         self.forecast = forecast
     }
@@ -29,25 +35,30 @@ class ForecastDecorator {
         return image.withRenderingMode(.alwaysTemplate)
     }
 
-    func minTemperature(unit: TempUnit) -> String {
+    func temperatureMin(unit: TempUnit) -> String {
         return TemperatureDecorator.convert(forecast.tempMin, unit: unit)
     }
 
-    func minTemperatureIcon() -> UIImage? {
+    func temperatureMinIcon() -> UIImage? {
         let image = UIImage(imageLiteralResourceName: "tempMin")
         return image.withRenderingMode(.alwaysTemplate)
     }
 
-    func maxTemperature(unit: TempUnit) -> String {
+    func temperatureMax(unit: TempUnit) -> String {
         return TemperatureDecorator.convert(forecast.tempMax, unit: unit)
     }
 
-    func maxTemperatureIcon() -> UIImage? {
+    func temperatureMaxIcon() -> UIImage? {
         let image = UIImage(imageLiteralResourceName: "tempMax")
         return image.withRenderingMode(.alwaysTemplate)
     }
 
     func timezone() -> TimeZone {
         return TimeZone(secondsFromGMT: Int(forecast.cityTimezone)) ?? TimeZone.current
+    }
+
+    func weekday() -> String {
+        guard let date = forecast.date else { return "" }
+        return weekdayFormatter.string(from: date)
     }
 }

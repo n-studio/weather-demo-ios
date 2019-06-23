@@ -10,21 +10,24 @@ import UIKit
 
 class DayForecastCell: UICollectionViewCell {
     @IBOutlet var dayLabel: UILabel?
+    @IBOutlet var weatherIcon: UIImageView?
+    @IBOutlet var tempMinLabel: UILabel?
+    @IBOutlet var tempMaxLabel: UILabel?
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
 
-    lazy var dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "EEEE"
-        return formatter
-    }()
+    
 
     weak var forecast: Forecast? {
         didSet {
-            guard let forecast = self.forecast, let date = forecast.date else { return }
-            self.dayLabel?.text = dateFormatter.string(from: date)
+            guard let forecast = self.forecast else { return }
+            let forecastDecorator = ForecastDecorator(forecast: forecast)
+            self.dayLabel?.text = forecastDecorator.weekday()
+            self.weatherIcon?.image = forecastDecorator.weatherIcon()
+            self.tempMinLabel?.text = forecastDecorator.temperatureMin(unit: .metric)
+            self.tempMaxLabel?.text = forecastDecorator.temperatureMax(unit: .metric)
         }
     }
 }
