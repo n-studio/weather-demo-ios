@@ -10,17 +10,18 @@ import UIKit
 import WeakArray
 
 class CityOverviewCell: UICollectionViewCell {
-    @IBOutlet var cityLabel: UILabel!
-    @IBOutlet var dateLabel: UILabel!
-    @IBOutlet var timeLabel: UILabel!
-    @IBOutlet var temperatureLabel: UILabel!
-    @IBOutlet var weatherIcon: UIImageView!
-    @IBOutlet var weatherLabel: UILabel!
-    @IBOutlet var temperatureMaxIcon: UIImageView!
-    @IBOutlet var temperatureMaxLabel: UILabel!
-    @IBOutlet var temperatureMinIcon: UIImageView!
-    @IBOutlet var temperatureMinLabel: UILabel!
-    @IBOutlet var weekForecastView: UICollectionView!
+    @IBOutlet var cityLabel: UILabel?
+    @IBOutlet var dateLabel: UILabel?
+    @IBOutlet var timeLabel: UILabel?
+    @IBOutlet var temperatureLabel: UILabel?
+    @IBOutlet var weatherIcon: UIImageView?
+    @IBOutlet var weatherLabel: UILabel?
+    @IBOutlet var temperatureMaxMinStackView: UIStackView?
+    @IBOutlet var temperatureMaxIcon: UIImageView?
+    @IBOutlet var temperatureMaxLabel: UILabel?
+    @IBOutlet var temperatureMinIcon: UIImageView?
+    @IBOutlet var temperatureMinLabel: UILabel?
+    @IBOutlet var weekForecastView: UICollectionView?
 
     let cornerRadius: CGFloat = 20.0
     var timezone: TimeZone = TimeZone.current {
@@ -34,7 +35,7 @@ class CityOverviewCell: UICollectionViewCell {
     var cityName: String? {
         didSet {
             guard let name = cityName else { return }
-            self.cityLabel.text = name
+            self.cityLabel?.text = name
             openPhotosApiController.searchPhoto(query: name) { (urlString) in
                 self.openPhotosApiController.getPhoto(urlString: urlString) { (image) in
                     DispatchQueue.main.async {
@@ -59,14 +60,14 @@ class CityOverviewCell: UICollectionViewCell {
             let todayForecastDecorator = ForecastDecorator(forecast: todayForecast)
             self.timezone = todayForecastDecorator.timezone()
             self.temperatureLabel?.text = todayForecastDecorator.temperature(unit: .metric)
-            self.weatherLabel.text = todayForecastDecorator.weather()
-            self.weatherIcon.image = todayForecastDecorator.weatherIcon()
-            self.temperatureMinIcon.image = todayForecastDecorator.temperatureMinIcon()
+            self.weatherLabel?.text = todayForecastDecorator.weather()
+            self.weatherIcon?.image = todayForecastDecorator.weatherIcon()
+            self.temperatureMinIcon?.image = todayForecastDecorator.temperatureMinIcon()
             self.temperatureMinLabel?.text = todayForecastDecorator.temperatureMin(unit: .metric)
-            self.temperatureMaxIcon.image = todayForecastDecorator.temperatureMaxIcon()
+            self.temperatureMaxIcon?.image = todayForecastDecorator.temperatureMaxIcon()
             self.temperatureMaxLabel?.text = todayForecastDecorator.temperatureMax(unit: .metric)
 
-            self.weekForecastView.reloadData()
+            self.weekForecastView?.reloadData()
         }
     }
 
@@ -91,8 +92,9 @@ class CityOverviewCell: UICollectionViewCell {
         super.didMoveToSuperview()
 
         self.contentView.addShadow()
+        self.temperatureMaxMinStackView?.addShadow()
 
-        self.weekForecastView.dataSource = self
+        self.weekForecastView?.dataSource = self
 
         clock?.delegate = self
         clock?.startClock()
@@ -124,7 +126,7 @@ extension CityOverviewCell: UICollectionViewDataSource {
 
 extension CityOverviewCell: ClockDelegate {
     func clockDidTick(dateString: String, timeString: String) {
-        self.dateLabel.text = dateString
-        self.timeLabel.text = timeString
+        self.dateLabel?.text = dateString
+        self.timeLabel?.text = timeString
     }
 }

@@ -9,12 +9,12 @@
 import UIKit
 
 class CityDetailViewController: UIViewController {
-    @IBOutlet var backButton: UIButton!
+    @IBOutlet var backButton: UIButton?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.backButton.addTarget(self, action: #selector(back), for: .touchDown)
+        self.backButton?.addTarget(self, action: #selector(back), for: .touchDown)
     }
 
     override func viewWillAppear(_ animated: Bool) {
