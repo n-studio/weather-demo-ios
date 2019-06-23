@@ -25,11 +25,15 @@ class CityDetailViewController: UIViewController {
         super.viewWillDisappear(animated)
     }
 
-    @objc func back() {
-        self.navigationController?.popViewController(animated: true)
-    }
-
     override var preferredStatusBarStyle : UIStatusBarStyle {
         return .lightContent
+    }
+}
+
+// MARK: Actions
+
+extension CityDetailViewController {
+    @objc func back() {
+        self.navigationController?.popViewController(animated: true)
     }
 }

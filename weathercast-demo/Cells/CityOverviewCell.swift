@@ -23,25 +23,12 @@ class CityOverviewCell: UICollectionViewCell {
     @IBOutlet var weekForecastView: UICollectionView!
 
     let cornerRadius: CGFloat = 20.0
-    var timer: Timer?
-
-    lazy var timezone: TimeZone = {
-        return TimeZone.current
-    }()
-
-    lazy var dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .full
-        formatter.timeZone = timezone
-        return formatter
-    }()
-
-    lazy var timeFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm"
-        formatter.timeZone = timezone
-        return formatter
-    }()
+    var timezone: TimeZone = TimeZone.current {
+        didSet {
+            clock?.timezone = timezone
+        }
+    }
+    var clock: Clock? = Clock()
 
     let openPhotosApiController = OpenPhotosAPIController()
     var cityName: String? {
@@ -107,30 +94,13 @@ class CityOverviewCell: UICollectionViewCell {
 
         self.weekForecastView.dataSource = self
 
-        startClock()
+        clock?.delegate = self
+        clock?.startClock()
     }
 
     deinit {
-        stopClock()
-    }
-}
-
-// MARK: Clock
-
-extension CityOverviewCell {
-    func startClock() {
-        tickClock()
-        timer = Timer.scheduledTimer(timeInterval: 10.0, target: self, selector: #selector(tickClock), userInfo: nil, repeats: true)
-    }
-
-    func stopClock() {
-        timer?.invalidate()
-    }
-
-    @objc func tickClock() {
-        let date = Date()
-        self.dateLabel.text = dateFormatter.string(from: date)
-        self.timeLabel.text = timeFormatter.string(from: date)
+        clock?.stopClock()
+        clock = nil
     }
 }
 
@@ -143,8 +113,18 @@ extension CityOverviewCell: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DayForecastCell", for: indexPath) as! DayForecastCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DayForecastCell",
+                                                      for: indexPath) as! DayForecastCell
         cell.forecast = forecasts[indexPath.row + 1]
         return cell
+    }
+}
+
+// MARK: Clock
+
+extension CityOverviewCell: ClockDelegate {
+    func clockDidTick(dateString: String, timeString: String) {
+        self.dateLabel.text = dateString
+        self.timeLabel.text = timeString
     }
 }

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6B9377DF3B466B071E6251D5 /* Pods_weathercast_demoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1E12C35761FE0776A1BA732 /* Pods_weathercast_demoTests.framework */; };
+		E2165F2322BF92E500CB1648 /* Clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2165F2222BF92E500CB1648 /* Clock.swift */; };
 		E241010E22B4F6EF00D18C3C /* ForecastDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E241010D22B4F6EF00D18C3C /* ForecastDecorator.swift */; };
 		E241010F22B502EB00D18C3C /* TemperatureDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25F61DB22B4D1DE00C08E50 /* TemperatureDecorator.swift */; };
 		E241011222B57B1B00D18C3C /* CityOverviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E241011122B57B1B00D18C3C /* CityOverviewCell.swift */; };
@@ -60,6 +61,7 @@
 		B1E12C35761FE0776A1BA732 /* Pods_weathercast_demoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_weathercast_demoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAA2F4996507313F430DA118 /* Pods-weathercast-demoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-weathercast-demoTests.debug.xcconfig"; path = "Target Support Files/Pods-weathercast-demoTests/Pods-weathercast-demoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		BED7BD1347D8768680CA09B9 /* Pods_weathercast_demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_weathercast_demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E2165F2222BF92E500CB1648 /* Clock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clock.swift; sourceTree = "<group>"; };
 		E241010D22B4F6EF00D18C3C /* ForecastDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastDecorator.swift; sourceTree = "<group>"; };
 		E241011122B57B1B00D18C3C /* CityOverviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityOverviewCell.swift; sourceTree = "<group>"; };
 		E241011622B581AA00D18C3C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 				E25F61A222B4C98B00C08E50 /* MainViewController.swift */,
 				E281EFF222BE749D004F099A /* CityDetailViewController.swift */,
 				E241011022B57AF500D18C3C /* Cells */,
+				E2B1965822BF92BC0051E7E2 /* Clock */,
 				E26462F122B5AEF100F6EB80 /* Extensions */,
 				E2C414B322BBFC44006EEAA5 /* Screen */,
 				E281EFF422BE7ED2004F099A /* Transitions */,
@@ -254,6 +257,14 @@
 			children = (
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		E2B1965822BF92BC0051E7E2 /* Clock */ = {
+			isa = PBXGroup;
+			children = (
+				E2165F2222BF92E500CB1648 /* Clock.swift */,
+			);
+			path = Clock;
 			sourceTree = "<group>";
 		};
 		E2C414B322BBFC44006EEAA5 /* Screen */ = {
@@ -486,6 +497,7 @@
 				E26462F322B5AF0000F6EB80 /* UIImage+extension.swift in Sources */,
 				E266F47722BD85A800F2A4A2 /* CitiesController.swift in Sources */,
 				E241011222B57B1B00D18C3C /* CityOverviewCell.swift in Sources */,
+				E2165F2322BF92E500CB1648 /* Clock.swift in Sources */,
 				E281EFF322BE749D004F099A /* CityDetailViewController.swift in Sources */,
 				E2C414B522BBFC92006EEAA5 /* Screen.swift in Sources */,
 				E25F61DC22B4D1DE00C08E50 /* TemperatureDecorator.swift in Sources */,
