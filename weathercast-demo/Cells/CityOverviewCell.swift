@@ -107,6 +107,16 @@ class CityOverviewCell: UICollectionViewCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
+
+        (self.backgroundView as? UIImageView)?.image = nil
+        self.cityLabel?.text = nil
+        self.dateLabel?.text = nil
+        self.timeLabel?.text = nil
+        self.temperatureLabel?.text = nil
+        self.weatherIcon?.image = nil
+        self.weatherLabel?.text = nil
+        self.temperatureMaxLabel?.text = nil
+        self.temperatureMinLabel?.text = nil
     }
 
     deinit {

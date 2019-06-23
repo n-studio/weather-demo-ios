@@ -50,16 +50,16 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="City" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="hHf-91-HPG">
-                                            <rect key="frame" x="0.0" y="48" width="414" height="29"/>
+                                            <rect key="frame" x="0.0" y="48" width="414" height="41.5"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" secondItem="hHf-91-HPG" secondAttribute="height" multiplier="200:14" id="ouS-M5-WPO"/>
+                                                <constraint firstAttribute="width" secondItem="hHf-91-HPG" secondAttribute="height" multiplier="200:20" id="ouS-M5-WPO"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="36"/>
                                             <color key="textColor" red="0.99473684210000002" green="0.98947368420000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Month Day, Year" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Uti-9m-lfK">
-                                            <rect key="frame" x="0.0" y="92" width="414" height="28"/>
+                                            <rect key="frame" x="0.0" y="104.5" width="414" height="28"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="Uti-9m-lfK" secondAttribute="height" multiplier="207:14" id="zeq-dh-SOV"/>
                                             </constraints>
@@ -68,7 +68,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--:--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="xjk-II-BcJ">
-                                            <rect key="frame" x="83" y="118" width="248" height="106"/>
+                                            <rect key="frame" x="83" y="130.5" width="248" height="106"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="xjk-II-BcJ" secondAttribute="height" multiplier="124:53" id="y3C-pS-EnN"/>
                                             </constraints>

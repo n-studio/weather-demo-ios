@@ -34,4 +34,14 @@ class DayForecastCell: UICollectionViewCell {
 
         self.contentView.addShadow(opacity: 0.5)
     }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
+        (self.backgroundView as? UIImageView)?.image = nil
+        self.dayLabel?.text = nil
+        self.weatherIcon?.image = nil
+        self.tempMinLabel?.text = nil
+        self.tempMaxLabel?.text = nil
+    }
 }
