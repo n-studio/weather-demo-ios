@@ -39,11 +39,9 @@ class CityOverviewCell: UICollectionViewCell {
             openPhotosApiController.searchPhoto(query: name) { (urlString) in
                 self.openPhotosApiController.getPhoto(urlString: urlString) { (image) in
                     DispatchQueue.main.async {
-                        let imageView = UIImageView(image: image.alpha(0.8))
-                        imageView.contentMode = .scaleAspectFill
-                        imageView.layer.cornerRadius = self.cornerRadius
-                        imageView.layer.masksToBounds = true
-                        self.backgroundView = imageView
+                        let imageView = self.backgroundView as? UIImageView
+                        imageView?.image = image.alpha(0.8)
+                        imageView?.layer.add(CATransition(), forKey: kCATransition)
                     }
                 }
             }
@@ -86,6 +84,13 @@ class CityOverviewCell: UICollectionViewCell {
         self.layer.shadowRadius = 5.0
         self.layer.shadowOpacity = 0.5
         self.layer.masksToBounds = false
+
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.cornerRadius = self.cornerRadius
+        imageView.layer.masksToBounds = true
+        imageView.layer.backgroundColor = UIColor.black.cgColor
+        self.backgroundView = imageView
     }
 
     override func didMoveToSuperview() {
@@ -98,6 +103,10 @@ class CityOverviewCell: UICollectionViewCell {
 
         clock?.delegate = self
         clock?.startClock()
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
     }
 
     deinit {
