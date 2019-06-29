@@ -118,3 +118,16 @@ extension MainViewController: UINavigationControllerDelegate {
         return transition
     }
 }
+
+// MARK: Segues
+
+extension MainViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "CityDetailViewSegue" {
+            guard let vc = segue.destination as? CityDetailViewController else { return }
+            guard let indexPath = collectionView.indexPathsForSelectedItems?.first else { return }
+            vc.forecasts = self.cities[indexPath.row].forecasts!
+            vc.
+        }
+    }
+}

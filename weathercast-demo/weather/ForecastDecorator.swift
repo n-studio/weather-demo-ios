@@ -21,6 +21,10 @@ class ForecastDecorator {
         self.forecast = forecast
     }
 
+    func cityName() -> String {
+        return forecast.cityName ?? ""
+    }
+
     func temperature(unit: TempUnit) -> String {
         return TemperatureDecorator.convert(forecast.temp, unit: unit)
     }
