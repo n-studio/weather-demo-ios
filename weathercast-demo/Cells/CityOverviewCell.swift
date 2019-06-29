@@ -97,19 +97,30 @@ class CityOverviewCell: UICollectionViewCell {
         self.backgroundView = imageView
     }
 
-    override func didMoveToSuperview() {
-        super.didMoveToSuperview()
+    override func awakeFromNib() {
+        super.awakeFromNib()
 
         self.contentView.addShadow()
         self.temperatureMaxMinStackView?.addShadow()
 
         self.weekForecastView?.dataSource = self
         self.weekForecastView?.delegate = self
+
+        reset()
     }
 
     override func prepareForReuse() {
         super.prepareForReuse()
 
+        reset()
+    }
+
+    deinit {
+        clock?.stopClock()
+        clock = nil
+    }
+
+    private func reset() {
         (self.backgroundView as? UIImageView)?.image = nil
         self.cityLabel?.text = nil
         self.dateLabel?.text = nil
@@ -119,13 +130,9 @@ class CityOverviewCell: UICollectionViewCell {
         self.weatherLabel?.text = nil
         self.temperatureMaxLabel?.text = nil
         self.temperatureMinLabel?.text = nil
+
         clock?.stopClock()
         self.clock = nil
-    }
-
-    deinit {
-        clock?.stopClock()
-        clock = nil
     }
 }
 

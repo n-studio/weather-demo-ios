@@ -28,7 +28,6 @@ class CityDetailViewController: UIViewController {
     }
 
     var forecasts: [Forecast] = []
-    var currentWeather: CurrentWeather?
 
     override func viewDidLoad() {
         super.viewDidLoad()

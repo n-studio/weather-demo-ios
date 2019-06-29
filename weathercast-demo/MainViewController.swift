@@ -67,9 +67,9 @@ class MainViewController: UICollectionViewController {
             weatherController.fetchForecast(city: city, country: country) { (forecasts) in
                 serialQueue.sync {
                     self.cities[index].forecasts = forecasts
-                }
-                DispatchQueue.main.sync {
-                    self.collectionView.reloadItems(at: [IndexPath(row: index, section: 0)])
+                    DispatchQueue.main.sync {
+                        self.collectionView.reloadItems(at: [IndexPath(row: index, section: 0)])
+                    }
                 }
             }
         }
