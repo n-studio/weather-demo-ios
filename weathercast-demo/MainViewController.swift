@@ -31,7 +31,6 @@ class MainViewController: UICollectionViewController {
         self.navigationController?.delegate = self
 
         let flowLayout = UICollectionViewFlowLayout()
-
         flowLayout.scrollDirection = .vertical
         if #available(iOS 11.0, *) {
             let height = UIApplication.shared.delegate?.window??.safeAreaInsets.top
@@ -42,13 +41,14 @@ class MainViewController: UICollectionViewController {
                                                     height: UIApplication.shared.statusBarFrame.size.height)
         }
         flowLayout.minimumLineSpacing = minimumLineSpacing
+        flowLayout.footerReferenceSize = CGSize(width: 0, height: minimumLineSpacing - flowLayout.headerReferenceSize.height)
         flowLayout.itemSize = itemSize
 
         collectionView.isPagingEnabled = true
         collectionView.setCollectionViewLayout(flowLayout, animated: false)
         collectionView.contentInset = UIEdgeInsets(top: -flowLayout.headerReferenceSize.height,
                                                    left: 0,
-                                                   bottom: 20,
+                                                   bottom: 0,
                                                    right: 0)
 
         collectionView.delegate = self
@@ -106,16 +106,6 @@ extension MainViewController {
     }
 }
 
-// MARK: UICollectionViewDelegateFlowLayout
-
-extension MainViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return itemSize
-    }
-}
-
 // MARK: UINavigationControllerDelegate
 
 extension MainViewController: UINavigationControllerDelegate {
@@ -124,6 +114,7 @@ extension MainViewController: UINavigationControllerDelegate {
                               from fromVC: UIViewController,
                               to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         let transition = CellTransition()
+        transition.pop = toVC is MainViewController
         return transition
     }
 }

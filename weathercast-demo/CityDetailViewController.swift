@@ -10,6 +10,25 @@ import UIKit
 
 class CityDetailViewController: UIViewController {
     @IBOutlet var backButton: UIButton?
+    @IBOutlet var cityLabel: UILabel?
+    @IBOutlet var dateLabel: UILabel?
+    @IBOutlet var timeLabel: UILabel?
+    @IBOutlet var temperatureLabel: UILabel?
+    @IBOutlet var weatherIcon: UIImageView?
+    @IBOutlet var weatherLabel: UILabel?
+    @IBOutlet var temperatureMaxMinStackView: UIStackView?
+    @IBOutlet var temperatureMaxIcon: UIImageView?
+    @IBOutlet var temperatureMaxLabel: UILabel?
+    @IBOutlet var temperatureMinIcon: UIImageView?
+    @IBOutlet var temperatureMinLabel: UILabel?
+    @IBOutlet var weekForecastView: UICollectionView?
+
+    @IBAction func dismiss(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+
+    var forecasts: [Forecast] = []
+    var currentWeather: CurrentWeather?
 
     override func viewDidLoad() {
         super.viewDidLoad()

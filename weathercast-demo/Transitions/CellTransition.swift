@@ -22,9 +22,26 @@ class CellTransition: NSObject, UIViewControllerAnimatedTransitioning {
         let containerView = transitionContext.containerView
 
         if pop {
+            NSLog("down")
+            let fromView = fromViewController!.view!
+            let toView = toViewController!.view
+            toView?.alpha = 0
 
+            containerView.addSubview(fromView)
+            containerView.addSubview(toView!)
+
+            UIView.animate(withDuration: animationDuration, animations: {
+                fromView.alpha = 0
+                toView?.alpha = 1
+            }) { finished in
+                if finished {
+                    fromView.transform = CGAffineTransform.identity
+                    transitionContext.completeTransition(true)
+                }
+            }
         }
         else {
+            NSLog("up")
             let fromView = fromViewController!.view!
             let toView = toViewController!.view
             toView?.alpha = 0

@@ -104,6 +104,7 @@ class CityOverviewCell: UICollectionViewCell {
         self.temperatureMaxMinStackView?.addShadow()
 
         self.weekForecastView?.dataSource = self
+        self.weekForecastView?.delegate = self
     }
 
     override func prepareForReuse() {
@@ -141,6 +142,16 @@ extension CityOverviewCell: UICollectionViewDataSource {
                                                       for: indexPath) as! DayForecastCell
         cell.forecast = forecasts[indexPath.row + 1]
         return cell
+    }
+}
+
+// MARK: UICollectionViewDelegateFlowLayout
+
+extension CityOverviewCell: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let height = collectionView.bounds.size.height
+        let width = height * 0.75
+        return CGSize(width: width, height: height)
     }
 }
 
