@@ -32,7 +32,7 @@ class DayForecastCell: UICollectionViewCell {
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
 
-        self.contentView.addShadow(opacity: 0.5)
+        self.contentView.addShadowToSubviews()
     }
 
     override func prepareForReuse() {

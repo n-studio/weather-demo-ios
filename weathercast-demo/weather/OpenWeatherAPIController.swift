@@ -25,8 +25,8 @@ class OpenWeatherAPIController {
         if var urlComponents = URLComponents(string: "http://api.openweathermap.org/data/2.5/forecast") {
             urlComponents.query = "q=\(city),\(country)&appId=\(openWeatherMapApiKey)"
             guard let url = urlComponents.url else { return }
-            dataTasks["\(city),\(country)"] = defaultSession.dataTask(with: url) { data, response, error in
-                defer { self.dataTasks["\(city),\(country)"] = nil }
+            dataTasks["\(city),\(country)"] = defaultSession.dataTask(with: url) { [weak self] (data, response, error) in
+                defer { self?.dataTasks["\(city),\(country)"] = nil }
 
                 if let error = error {
                     NSLog("Error: \(error.localizedDescription)")

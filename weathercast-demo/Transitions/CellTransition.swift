@@ -9,7 +9,7 @@
 import UIKit
 
 class CellTransition: NSObject, UIViewControllerAnimatedTransitioning {
-    let animationDuration = 0.35
+    let animationDuration = 0.5
     var pop = false
 
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
@@ -17,45 +17,96 @@ class CellTransition: NSObject, UIViewControllerAnimatedTransitioning {
     }
 
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        let fromViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)
-        let toViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)
+        let fromViewController = transitionContext.viewController(forKey: .from)
+        let toViewController = transitionContext.viewController(forKey: .to)
         let containerView = transitionContext.containerView
 
         if pop {
-            NSLog("down")
-            let fromView = fromViewController!.view!
-            let toView = toViewController!.view
-            toView?.alpha = 0
+            guard let fromViewController = fromViewController as? CityDetailViewController else { return }
+            guard let toViewController = toViewController as? MainViewController else { return }
 
-            containerView.addSubview(fromView)
-            containerView.addSubview(toView!)
+            let toBackgroundView = UIImageView(image: toViewController.selectedCellImage)
+            toBackgroundView.backgroundColor = .black
+            toBackgroundView.contentMode = .scaleAspectFill
+            toBackgroundView.layer.cornerRadius = 0
+            toBackgroundView.layer.borderWidth = 1.0
+            toBackgroundView.layer.borderColor = UIColor.clear.cgColor
+            toBackgroundView.layer.masksToBounds = true
+            toBackgroundView.layer.shouldRasterize = true
+            toBackgroundView.layer.rasterizationScale = UIScreen.main.scale
+            guard let toContentViewSnapshot = toViewController.selectedCellSnapshot else { return }
+            toContentViewSnapshot.clipsToBounds = true
+            toContentViewSnapshot.contentMode = .top
+            guard let toView = toViewController.view else { return }
 
-            UIView.animate(withDuration: animationDuration, animations: {
-                fromView.alpha = 0
-                toView?.alpha = 1
+            toView.isHidden = true
+            toBackgroundView.frame = CGRect(origin: .zero,
+                                              size: containerView.bounds.size)
+            toContentViewSnapshot.frame = toBackgroundView.frame
+            toContentViewSnapshot.frame.origin.y = 20
+            let tableView = UIView(frame: CGRect(origin: CGPoint(x: 0, y: (fromViewController.separatorBar?.frame.origin.y ?? 0)), size: containerView.bounds.size))
+            tableView.backgroundColor = .white
+            tableView.topRoundedCorners(cornerRadii: CGSize(width: 10, height: 10))
+            tableView.addShadow(offset: CGSize(width: 0, height: -10))
+
+            let whiteBackground = UIView(frame: containerView.bounds)
+            whiteBackground.backgroundColor = .white
+            containerView.addSubview(whiteBackground)
+            containerView.addSubview(toBackgroundView)
+            containerView.addSubview(toContentViewSnapshot)
+            containerView.addSubview(tableView)
+            containerView.addSubview(toView)
+
+            UIView.animate(withDuration: animationDuration, delay: 0, options: .curveEaseOut, animations: {
+                toBackgroundView.frame = CGRect(x: 10, y: 20, width: 300, height: 480)
+                toBackgroundView.layer.cornerRadius = CityOverviewCell.cornerRadius
+                tableView.frame.origin.y = containerView.bounds.height
             }) { finished in
-                if finished {
-                    fromView.transform = CGAffineTransform.identity
-                    transitionContext.completeTransition(true)
-                }
+                transitionContext.completeTransition(finished)
+                toView.isHidden = false
             }
         }
         else {
-            NSLog("up")
-            let fromView = fromViewController!.view!
-            let toView = toViewController!.view
-            toView?.alpha = 0
+            guard let fromViewController = fromViewController as? MainViewController else { return }
+            guard let toViewController = toViewController as? CityDetailViewController else { return }
 
-            containerView.addSubview(fromView)
-            containerView.addSubview(toView!)
+            let fromBackgroundView = UIImageView(image: fromViewController.selectedCellImage)
+            fromBackgroundView.backgroundColor = .black
+            fromBackgroundView.contentMode = .scaleAspectFill
+            fromBackgroundView.layer.cornerRadius = CityOverviewCell.cornerRadius
+            fromBackgroundView.layer.borderWidth = 1.0
+            fromBackgroundView.layer.borderColor = UIColor.clear.cgColor
+            fromBackgroundView.layer.masksToBounds = true
+            fromBackgroundView.layer.shouldRasterize = true
+            fromBackgroundView.layer.rasterizationScale = UIScreen.main.scale
+            guard let fromContentViewSnapshot = fromViewController.selectedCellSnapshot else { return }
+            fromContentViewSnapshot.clipsToBounds = true
+            fromContentViewSnapshot.contentMode = .top
+            guard let toView = toViewController.view else { return }
 
-            UIView.animate(withDuration: animationDuration, animations: {
-                fromView.alpha = 0
-                toView?.alpha = 1
+            toView.isHidden = true
+            fromBackgroundView.frame = CGRect(origin: CGPoint(x: fromViewController.cellMargins.width / 2,
+                                                              y: fromViewController.flowLayout?.headerReferenceSize.height ?? 0),
+                                              size: fromContentViewSnapshot.bounds.size)
+            fromContentViewSnapshot.frame = fromBackgroundView.frame
+            let tableView = UIView(frame: CGRect(origin: CGPoint(x: 0, y: containerView.bounds.height), size: containerView.bounds.size))
+            tableView.backgroundColor = .white
+            tableView.topRoundedCorners(cornerRadii: CGSize(width: 10, height: 10))
+            tableView.addShadow(offset: CGSize(width: 0, height: -10))
+
+            containerView.addSubview(fromBackgroundView)
+            containerView.addSubview(fromContentViewSnapshot)
+            containerView.addSubview(tableView)
+            containerView.addSubview(toView)
+
+            UIView.animate(withDuration: animationDuration, delay: 0, options: .curveEaseOut, animations: {
+                fromBackgroundView.frame = containerView.bounds
+                fromBackgroundView.layer.cornerRadius = 0
+                tableView.frame.origin.y = (toViewController.separatorBar?.frame.origin.y ?? 0)
             }) { finished in
                 if finished {
-                    fromView.transform = CGAffineTransform.identity
                     transitionContext.completeTransition(true)
+                    toView.isHidden = false
                 }
             }
         }

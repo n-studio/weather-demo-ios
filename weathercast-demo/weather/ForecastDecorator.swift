@@ -9,7 +9,7 @@
 import UIKit
 
 class ForecastDecorator {
-    let forecast: Forecast
+    weak var forecast: Forecast?
 
     lazy private var weekdayFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -22,19 +22,19 @@ class ForecastDecorator {
     }
 
     func cityName() -> String {
-        return forecast.cityName ?? ""
+        return forecast?.cityName ?? ""
     }
 
     func temperature(unit: TempUnit) -> String {
-        return TemperatureDecorator.convert(forecast.temp, unit: unit)
+        return TemperatureDecorator.convert(forecast?.temp ?? 0, unit: unit)
     }
 
     func weather() -> String {
-        return forecast.weatherDescription?.capitalizingFirstLetter() ?? ""
+        return forecast?.weatherDescription?.capitalizingFirstLetter() ?? ""
     }
 
     func weatherIcon(forceDayTime: Bool = false) -> UIImage? {
-        guard let originalIconName = forecast.weatherIcon else { return nil }
+        guard let originalIconName = forecast?.weatherIcon else { return nil }
         let iconName: String
         if forceDayTime {
             // Convert night to day
@@ -48,7 +48,7 @@ class ForecastDecorator {
     }
 
     func temperatureMin(unit: TempUnit) -> String {
-        return TemperatureDecorator.convert(forecast.tempMin, unit: unit)
+        return TemperatureDecorator.convert(forecast?.tempMin ?? 0, unit: unit)
     }
 
     func temperatureMinIcon() -> UIImage? {
@@ -57,7 +57,7 @@ class ForecastDecorator {
     }
 
     func temperatureMax(unit: TempUnit) -> String {
-        return TemperatureDecorator.convert(forecast.tempMax, unit: unit)
+        return TemperatureDecorator.convert(forecast?.tempMax ?? 0, unit: unit)
     }
 
     func temperatureMaxIcon() -> UIImage? {
@@ -66,11 +66,11 @@ class ForecastDecorator {
     }
 
     func timezone() -> TimeZone {
-        return TimeZone(secondsFromGMT: Int(forecast.cityTimezone)) ?? TimeZone.current
+        return TimeZone(secondsFromGMT: Int(forecast?.cityTimezone ?? 0)) ?? TimeZone.current
     }
 
     func weekday() -> String {
-        guard let date = forecast.date else { return "" }
+        guard let date = forecast?.date else { return "" }
         return weekdayFormatter.string(from: date)
     }
 }

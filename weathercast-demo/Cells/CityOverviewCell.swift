@@ -23,7 +23,7 @@ class CityOverviewCell: UICollectionViewCell {
     @IBOutlet var temperatureMinLabel: UILabel?
     @IBOutlet var weekForecastView: UICollectionView?
 
-    let cornerRadius: CGFloat = 20.0
+    static let cornerRadius: CGFloat = 20.0
     var timezone: TimeZone = TimeZone.current {
         didSet {
             clock?.stopClock()
@@ -38,17 +38,9 @@ class CityOverviewCell: UICollectionViewCell {
     let openPhotosApiController = OpenPhotosAPIController()
     var cityName: String? {
         didSet {
+            if self.cityLabel?.text == cityName { return }
             guard let name = cityName else { return }
             self.cityLabel?.text = name
-            openPhotosApiController.searchPhoto(query: name) { (urlString) in
-                self.openPhotosApiController.getPhoto(urlString: urlString) { (image) in
-                    DispatchQueue.main.async {
-                        let imageView = self.backgroundView as? UIImageView
-                        imageView?.image = image.alpha(0.8)
-                        imageView?.layer.add(CATransition(), forKey: kCATransition)
-                    }
-                }
-            }
         }
     }
 
@@ -76,32 +68,13 @@ class CityOverviewCell: UICollectionViewCell {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
 
-        self.backgroundColor = .clear
-
-        self.contentView.layer.cornerRadius = cornerRadius
-        self.contentView.layer.borderWidth = 1.0
-        self.contentView.layer.borderColor = UIColor.clear.cgColor
-        self.contentView.layer.masksToBounds = true
-
-        self.layer.shadowColor = UIColor.black.cgColor
-        self.layer.shadowOffset = CGSize(width: 0, height: 5.0)
-        self.layer.shadowRadius = 5.0
-        self.layer.shadowOpacity = 0.5
-        self.layer.masksToBounds = false
-
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        imageView.layer.cornerRadius = self.cornerRadius
-        imageView.layer.masksToBounds = true
-        imageView.layer.backgroundColor = UIColor.black.cgColor
-        self.backgroundView = imageView
+        setCellUI()
     }
 
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        self.contentView.addShadow()
-        self.temperatureMaxMinStackView?.addShadow()
+        setShadowsUI()
 
         self.weekForecastView?.dataSource = self
         self.weekForecastView?.delegate = self
@@ -168,5 +141,63 @@ extension CityOverviewCell: ClockDelegate {
     func clockDidTick(dateString: String, timeString: String) {
         self.dateLabel?.text = dateString
         self.timeLabel?.text = timeString
+    }
+}
+
+// MARK: BackgroundImage
+
+extension CityOverviewCell {
+    var backgroundImage: UIImage? {
+        get {
+            let imageView = self.backgroundView as? UIImageView
+            return imageView?.image
+        }
+        set {
+            let imageView = self.backgroundView as? UIImageView
+            imageView?.image = newValue
+        }
+    }
+}
+
+// MARK: Set UI
+
+extension CityOverviewCell {
+    private func setCellUI() {
+        self.backgroundColor = .clear
+
+        self.contentView.layer.cornerRadius = CityOverviewCell.cornerRadius
+        self.contentView.layer.borderWidth = 1.0
+        self.contentView.layer.borderColor = UIColor.clear.cgColor
+        self.contentView.layer.masksToBounds = true
+        self.contentView.layer.shouldRasterize = true
+        self.contentView.layer.rasterizationScale = UIScreen.main.scale
+
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowOffset = CGSize(width: 0, height: 5.0)
+        self.layer.shadowRadius = 5.0
+        self.layer.shadowOpacity = 0.5
+        self.layer.masksToBounds = false
+        self.layer.shouldRasterize = true
+        self.layer.rasterizationScale = UIScreen.main.scale
+
+        let transition = CATransition()
+        transition.duration = 0.5
+        transition.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+        transition.type = .fade
+
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.cornerRadius = CityOverviewCell.cornerRadius
+        imageView.layer.masksToBounds = true
+        imageView.layer.backgroundColor = UIColor.black.cgColor
+        imageView.layer.add(transition, forKey: kCATransition)
+        imageView.layer.shouldRasterize = true
+        imageView.layer.rasterizationScale = UIScreen.main.scale
+        self.backgroundView = imageView
+    }
+
+    private func setShadowsUI() {
+        self.contentView.addShadowToSubviews()
+        self.temperatureMaxMinStackView?.addShadowToSubviews()
     }
 }

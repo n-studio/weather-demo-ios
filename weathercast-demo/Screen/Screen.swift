@@ -13,7 +13,10 @@ class Screen {
 
     init(view: UIView) {
         if #available(iOS 11.0, *) {
-            self.bounds = CGRect(x: 0, y: 0, width: view.bounds.width - view.safeAreaInsets.left - view.safeAreaInsets.right, height: view.bounds.height - view.safeAreaInsets.top - view.safeAreaInsets.bottom)
+            self.bounds = CGRect(x: 0,
+                                 y: 0,
+                                 width: view.bounds.width - view.safeAreaInsets.left - view.safeAreaInsets.right,
+                                 height: view.bounds.height - view.safeAreaInsets.top - view.safeAreaInsets.bottom)
         } else {
             self.bounds = view.bounds
         }

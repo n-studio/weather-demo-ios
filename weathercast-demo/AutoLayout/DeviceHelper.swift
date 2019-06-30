@@ -2,7 +2,7 @@
 //
 //  Created by Wabbiters on 4/15/19.
 //  Copyright © 2019 Wabbiters. All rights reserved.
-// https://github.com/tryWabbit/Layout-Helper/blob/master/Layout%20Helper/Layout%20Helper/DeviceHelper.swift
+//  https://github.com/tryWabbit/Layout-Helper/blob/master/Layout%20Helper/Layout%20Helper/DeviceHelper.swift
 
 import UIKit
 
