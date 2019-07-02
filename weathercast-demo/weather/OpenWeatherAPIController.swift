@@ -11,7 +11,7 @@ import Foundation
 class OpenWeatherAPIController {
     private let defaultSession = URLSession(configuration: .default)
     private var dataTasks: [String:URLSessionDataTask] = [:]
-    typealias JSONResult = (Data) -> ()
+    typealias JSONResult = (Data?, Error?) -> ()
 
     lazy var openWeatherMapApiKey: String = {
         guard let path = Bundle.main.path(forResource: "Env", ofType: "plist") else { return "" }
@@ -29,10 +29,13 @@ class OpenWeatherAPIController {
                 defer { self?.dataTasks["\(city),\(country)"] = nil }
 
                 if let error = error {
-                    NSLog("Error: \(error.localizedDescription)")
+                    completion(nil, error)
                 }
                 else if let data = data, let response = response as? HTTPURLResponse, response.statusCode == 200 {
-                    completion(data)
+                    completion(data, nil)
+                }
+                else {
+                    completion(nil, UnknownError.withMessage(string: "[requestForecast] Unknown error"))
                 }
             }
         }

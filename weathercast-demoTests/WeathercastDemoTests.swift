@@ -32,8 +32,8 @@ class WeathercastDemoTests: XCTestCase {
         let expectation = XCTestExpectation(description: "Get HTTP response")
 
         let controller = WeatherController()
-
-        controller.fetchForecast(city: "Paris", country: "fr") { forecasts in
+        let now = Date(timeIntervalSince1970: TimeInterval(1560589200))
+        controller.fetchForecast(city: "Paris", country: "fr", from: now) { forecasts, error in
             assert(forecasts.count == 6, "Wrong count of forecasts \(forecasts.count)")
             guard let forecast = forecasts.first else {
                 assert(false)

@@ -69,22 +69,28 @@ class MainViewController: UICollectionViewController, UIViewControllerTransition
         super.viewWillAppear(animated)
 
         // Fetch data for all cities
+        let now = Date()
         let serialQueue = DispatchQueue(label: "SerialQueue")
         for index in 0..<cities.count {
             let city = self.cities[index].name
             let country = self.cities[index].country
-            weatherController.fetchForecast(city: city, country: country) { (forecasts) in
-                serialQueue.sync {
-                    self.cities[index].forecasts = forecasts
-                    DispatchQueue.main.sync {
-                        self.collectionView.reloadItems(at: [IndexPath(row: index, section: 0)])
+            weatherController.fetchForecast(city: city, country: country, from: now) { (forecasts, error) in
+                if let error = error {
+                    NSLog(error.localizedDescription)
+                }
+                else {
+                    serialQueue.sync {
+                        self.cities[index].forecasts = forecasts
+                        DispatchQueue.main.async {
+                            self.collectionView.reloadItems(at: [IndexPath(row: index, section: 0)])
+                        }
                     }
                 }
             }
             fetchBackgroundImage(query: city) { (image) in
                 serialQueue.sync {
                     self.cityImages[index] = image.alpha(0.8)
-                    DispatchQueue.main.sync {
+                    DispatchQueue.main.async {
                         self.collectionView.reloadItems(at: [IndexPath(row: index, section: 0)])
                     }
                 }
@@ -161,8 +167,12 @@ extension MainViewController {
     typealias ImageResult = (UIImage) -> ()
 
     private func fetchBackgroundImage(query: String, completion: @escaping ImageResult) {
+        if let photoFromCache = openPhotosApiController.photosCache.object(forKey: query) as? UIImage {
+            completion(photoFromCache)
+            return
+        }
         openPhotosApiController.searchPhoto(query: query) { (urlString) in
-            self.openPhotosApiController.getPhoto(urlString: urlString) { (image) in
+            self.openPhotosApiController.getPhoto(query: query, urlString: urlString) { (image) in
                 completion(image)
             }
         }

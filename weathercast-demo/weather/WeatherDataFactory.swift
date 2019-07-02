@@ -32,6 +32,7 @@ struct Measurement {
 class WeatherDataFactory {
     func parseAndBuildForecastsFrom(jsonData: Data) -> [Forecast] {
         var forecasts: [Forecast] = []
+        let now = Date()
 
         let managedContext = CoreDataController.shared.persistentContainer.viewContext
         guard let json = try! JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any],
@@ -104,26 +105,10 @@ class WeatherDataFactory {
             let forecast = Forecast(context: managedContext)
             guard let city = city else { continue }
 
-            forecast.setValue(city["id"], forKeyPath: "cityId")
-            forecast.setValue(city["name"], forKeyPath: "cityName")
-            forecast.setValue(city["timezone"], forKeyPath: "cityTimezone")
-            forecast.setValue(dailyMeasurement.temp, forKeyPath: "temp")
-            forecast.setValue(dailyMeasurement.tempMax, forKeyPath: "tempMax")
-            forecast.setValue(dailyMeasurement.tempMin, forKeyPath: "tempMin")
-            forecast.setValue(dailyMeasurement.pressure, forKeyPath: "pressure")
-            forecast.setValue(dailyMeasurement.seaLevel, forKeyPath: "seaLevel")
-            forecast.setValue(dailyMeasurement.grndLevel, forKeyPath: "grndLevel")
-            forecast.setValue(dailyMeasurement.humidity, forKeyPath: "humidity")
-            forecast.setValue(dailyMeasurement.weatherId, forKeyPath: "weatherId")
-            forecast.setValue(dailyMeasurement.weatherDescription, forKeyPath: "weatherDescription")
-            forecast.setValue(dailyMeasurement.weatherIcon, forKeyPath: "weatherIcon")
-            forecast.setValue(dailyMeasurement.weatherMain, forKeyPath: "weatherMain")
-            forecast.setValue(dailyMeasurement.cloudsAll, forKeyPath: "cloudsAll")
-            forecast.setValue(dailyMeasurement.date, forKeyPath: "date")
-            forecast.setValue(dailyMeasurement.rain3h, forKeyPath: "rain3h")
-            forecast.setValue(dailyMeasurement.snow3h, forKeyPath: "snow3h")
-            forecast.setValue(dailyMeasurement.windDeg, forKeyPath: "windDeg")
-            forecast.setValue(dailyMeasurement.windSpeed, forKeyPath: "windSpeed")
+            assign(forecast, city: city)
+            assign(forecast, measurement: dailyMeasurement)
+            forecast.setValue("daily", forKeyPath: "type")
+            forecast.setValue(now, forKeyPath: "createdAt")
             forecasts.append(forecast)
         }
 
@@ -235,5 +220,32 @@ class WeatherDataFactory {
             }
         }
         return worstMeasurement
+    }
+
+    private func assign(_ forecast: Forecast, city: [String: Any]) {
+        forecast.setValue(city["id"], forKeyPath: "cityId")
+        forecast.setValue(city["name"], forKeyPath: "cityName")
+        forecast.setValue(city["name"], forKeyPath: "cityIdentifier")
+        forecast.setValue(city["timezone"], forKeyPath: "cityTimezone")
+    }
+
+    private func assign(_ forecast: Forecast, measurement: Measurement) {
+        forecast.setValue(measurement.temp, forKeyPath: "temp")
+        forecast.setValue(measurement.tempMax, forKeyPath: "tempMax")
+        forecast.setValue(measurement.tempMin, forKeyPath: "tempMin")
+        forecast.setValue(measurement.pressure, forKeyPath: "pressure")
+        forecast.setValue(measurement.seaLevel, forKeyPath: "seaLevel")
+        forecast.setValue(measurement.grndLevel, forKeyPath: "grndLevel")
+        forecast.setValue(measurement.humidity, forKeyPath: "humidity")
+        forecast.setValue(measurement.weatherId, forKeyPath: "weatherId")
+        forecast.setValue(measurement.weatherDescription, forKeyPath: "weatherDescription")
+        forecast.setValue(measurement.weatherIcon, forKeyPath: "weatherIcon")
+        forecast.setValue(measurement.weatherMain, forKeyPath: "weatherMain")
+        forecast.setValue(measurement.cloudsAll, forKeyPath: "cloudsAll")
+        forecast.setValue(measurement.date, forKeyPath: "date")
+        forecast.setValue(measurement.rain3h, forKeyPath: "rain3h")
+        forecast.setValue(measurement.snow3h, forKeyPath: "snow3h")
+        forecast.setValue(measurement.windDeg, forKeyPath: "windDeg")
+        forecast.setValue(measurement.windSpeed, forKeyPath: "windSpeed")
     }
 }

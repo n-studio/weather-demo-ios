@@ -14,7 +14,7 @@ extension UIImage {
         defer { UIGraphicsEndImageContext() }
         draw(at: CGPoint.zero, blendMode: .normal, alpha: value)
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        return newImage!
+        return newImage ?? UIImage()
     }
 
     convenience init?(view: UIView) {

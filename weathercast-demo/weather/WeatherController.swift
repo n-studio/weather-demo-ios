@@ -12,12 +12,38 @@ class WeatherController {
     let openWeatherAPIController = OpenWeatherAPIController()
     let coreDataController = CoreDataController.shared
     let weatherDataFactory = WeatherDataFactory()
+    typealias ForecastResult = ([Forecast], Error?) -> ()
 
-    func fetchForecast(city: String, country: String, completion: @escaping (_ forecasts: [Forecast]) -> ()) {
-        openWeatherAPIController.requestForecast(city: city, country: country) { [weak self] (jsonData) in
-            guard let forecasts = self?.weatherDataFactory.parseAndBuildForecastsFrom(jsonData: jsonData) else { return }
-            self?.coreDataController.save()
-            completion(forecasts)
+    func fetchForecast(city: String, country: String, from: Date, completion: @escaping ForecastResult) {
+        openWeatherAPIController.requestForecast(city: city, country: country) { [weak self] (jsonData, error) in
+            if let _ = error {
+                let now = Date()
+                self?.coreDataController.fetchIncomingForecasts(city: city, from: now) { (forecasts, error) in
+                    if let error = error {
+                        completion([], error)
+                    }
+                    else {
+                        completion(forecasts, nil)
+                    }
+                }
+            }
+            else if let jsonData = jsonData {
+                self?.coreDataController.cleanForecasts(city: city) {
+                    guard let forecasts = self?.weatherDataFactory.parseAndBuildForecastsFrom(jsonData: jsonData) else {
+                        completion([], UnknownError.withMessage(string: "[fetchForecast] Unkown Error"))
+                        return
+                    }
+                    self?.coreDataController.save()
+
+                    let incomingForecasts = forecasts.filter() { (forecast) -> Bool in
+                        if let data = forecast.date {
+                            return data >= from
+                        }
+                        return false
+                    }
+                    completion(incomingForecasts, nil)
+                }
+            }
         }
     }
 }

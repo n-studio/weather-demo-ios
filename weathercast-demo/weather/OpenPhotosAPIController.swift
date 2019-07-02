@@ -7,13 +7,17 @@
 //
 
 import UIKit
+import TMCache
 
 class OpenPhotosAPIController {
     private lazy var cachedSession: URLSession = {
         let config = URLSessionConfiguration.default
         config.requestCachePolicy = .returnCacheDataElseLoad
-        config.urlCache = nil
+        config.urlCache = URLCache.shared
         return URLSession(configuration: config)
+    }()
+    lazy var photosCache: TMCache = {
+        return TMCache.shared()
     }()
     private var dataTasks: [String:URLSessionDataTask] = [:]
     typealias StringResult = (String) -> ()
@@ -44,7 +48,7 @@ class OpenPhotosAPIController {
         dataTasks["\(query)"]?.resume()
     }
 
-    func getPhoto(urlString: String, completion: @escaping ImageResult) {
+    func getPhoto(query: String, urlString: String, completion: @escaping ImageResult) {
         dataTasks["\(urlString)"]?.cancel()
         if var urlComponents = URLComponents(string: urlString) {
             guard let url = urlComponents.url else { return }
@@ -53,6 +57,7 @@ class OpenPhotosAPIController {
 
                 guard let data = data else { return }
                 guard let image = UIImage(data: data) else { return }
+                self?.photosCache.setObject(image, forKey: query)
                 completion(image)
             }
         }
