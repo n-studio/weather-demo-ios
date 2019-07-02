@@ -26,9 +26,37 @@ class weathercast_demoUITests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() {
+    func testFlow() {
         // Use recording to get started writing UI tests.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+
+        let app = XCUIApplication()
+
+        app.collectionViews.cells.element(boundBy: 0).tap()
+
+        let expectation0 = expectation(for: NSPredicate(format: "exists = true"), evaluatedWith: app.buttons["close"], handler: nil)
+        XCTWaiter().wait(for: [expectation0], timeout: 5.0)
+
+        app.buttons["close"].tap()
+
+        let expectation1 = expectation(for: NSPredicate(format: "exists = true"), evaluatedWith: app.collectionViews.cells.staticTexts["Paris"], handler: nil)
+        XCTWaiter().wait(for: [expectation1], timeout: 5.0)
+
+        XCTAssert(app.collectionViews.cells.staticTexts["Paris"].exists)
+
+        app.collectionViews.cells.element(boundBy: 0).swipeUp()
+
+        let expectation2 = expectation(for: NSPredicate(format: "exists = true"), evaluatedWith: app.collectionViews.cells.staticTexts["London"], handler: nil)
+        XCTWaiter().wait(for: [expectation2], timeout: 5.0)
+
+        XCTAssert(app.collectionViews.cells.staticTexts["London"].exists)
+
+        app.collectionViews.cells.element(boundBy: 0).swipeUp()
+
+        let expectation3 = expectation(for: NSPredicate(format: "exists = true"), evaluatedWith: app.collectionViews.cells.staticTexts["Tokyo"], handler: nil)
+        XCTWaiter().wait(for: [expectation3], timeout: 5.0)
+
+        XCTAssert(app.collectionViews.cells.staticTexts["Tokyo"].exists)
     }
 
 }
