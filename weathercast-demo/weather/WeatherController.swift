@@ -14,11 +14,11 @@ class WeatherController {
     let weatherDataFactory = WeatherDataFactory()
     typealias ForecastResult = ([Forecast], Error?) -> ()
 
-    func fetchForecast(city: String, country: String, from: Date, completion: @escaping ForecastResult) {
+    func fetchForecast(city: String, country: String, from: Date, type: String, completion: @escaping ForecastResult) {
         openWeatherAPIController.requestForecast(city: city, country: country) { [weak self] (jsonData, error) in
             if let _ = error {
                 let now = Date()
-                self?.coreDataController.fetchIncomingForecasts(city: city, from: now) { (forecasts, error) in
+                self?.coreDataController.fetchIncomingForecasts(city: city, from: now, type: type) { (forecasts, error) in
                     if let error = error {
                         completion([], error)
                     }

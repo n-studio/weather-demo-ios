@@ -13,7 +13,15 @@ class ForecastDecorator {
 
     lazy private var weekdayFormatter: DateFormatter = {
         let formatter = DateFormatter()
+        formatter.timeZone = timezone
         formatter.dateFormat = "EEEE" // Monday, Tuesday, ...
+        return formatter
+    }()
+
+    lazy private var hourFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.timeZone = timezone
+        formatter.dateFormat = "HH:mm" // 02:00
         return formatter
     }()
 
@@ -21,20 +29,28 @@ class ForecastDecorator {
         self.forecast = forecast
     }
 
-    func cityName() -> String {
+    lazy var cityName: String = {
         return forecast?.cityName ?? ""
-    }
+    }()
+
+    lazy var temp: Float = {
+        return forecast?.temp ?? 0
+    }()
 
     func temperature(unit: TempUnit) -> String {
-        return TemperatureDecorator.convert(forecast?.temp ?? 0, unit: unit)
+        return TemperatureDecorator.convert(temp, unit: unit)
     }
 
-    func weather() -> String {
+    lazy var weather: String = {
         return forecast?.weatherDescription?.capitalizingFirstLetter() ?? ""
-    }
+    }()
+
+    lazy var weatherIconName: String? = {
+        return forecast?.weatherIcon
+    }()
 
     func weatherIcon(forceDayTime: Bool = false) -> UIImage? {
-        guard let originalIconName = forecast?.weatherIcon else { return nil }
+        guard let originalIconName = weatherIconName else { return nil }
         let iconName: String
         if forceDayTime {
             // Convert night to day
@@ -47,30 +63,54 @@ class ForecastDecorator {
         return image.withRenderingMode(.alwaysTemplate)
     }
 
+    lazy var tempMin: Float = {
+        return forecast?.tempMin ?? 0
+    }()
+
     func temperatureMin(unit: TempUnit) -> String {
-        return TemperatureDecorator.convert(forecast?.tempMin ?? 0, unit: unit)
+        return TemperatureDecorator.convert(tempMin, unit: unit)
     }
 
-    func temperatureMinIcon() -> UIImage? {
+    lazy var temperatureMinIcon: UIImage? = {
         let image = UIImage(imageLiteralResourceName: "tempMin")
         return image.withRenderingMode(.alwaysTemplate)
-    }
+    }()
+
+    lazy var tempMax: Float = {
+        return forecast?.tempMax ?? 0
+    }()
 
     func temperatureMax(unit: TempUnit) -> String {
-        return TemperatureDecorator.convert(forecast?.tempMax ?? 0, unit: unit)
+        return TemperatureDecorator.convert(tempMax, unit: unit)
     }
 
-    func temperatureMaxIcon() -> UIImage? {
+    lazy var temperatureMaxIcon: UIImage? = {
         let image = UIImage(imageLiteralResourceName: "tempMax")
         return image.withRenderingMode(.alwaysTemplate)
-    }
+    }()
 
-    func timezone() -> TimeZone {
+    lazy var timezone: TimeZone = {
         return TimeZone(secondsFromGMT: Int(forecast?.cityTimezone ?? 0)) ?? TimeZone.current
-    }
+    }()
 
-    func weekday() -> String {
+    lazy var weekday: String = {
         guard let date = forecast?.date else { return "" }
         return weekdayFormatter.string(from: date)
+    }()
+
+    lazy var hour: String = {
+        guard let date = forecast?.date else { return "" }
+        return hourFormatter.string(from: date)
+    }()
+
+    func compute() {
+        _ = timezone
+        _ = hour
+        _ = weekday
+        _ = temperatureMaxIcon
+        _ = tempMax
+        _ = tempMin
+        _ = weatherIconName
+        _ = cityName
     }
 }

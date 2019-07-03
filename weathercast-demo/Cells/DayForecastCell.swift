@@ -22,7 +22,7 @@ class DayForecastCell: UICollectionViewCell {
         didSet {
             guard let forecast = self.forecast else { return }
             let forecastDecorator = ForecastDecorator(forecast: forecast)
-            self.dayLabel?.text = forecastDecorator.weekday()
+            self.dayLabel?.text = forecastDecorator.weekday
             self.weatherIcon?.image = forecastDecorator.weatherIcon(forceDayTime: true)
             self.tempMinLabel?.text = forecastDecorator.temperatureMin(unit: .metric)
             self.tempMaxLabel?.text = forecastDecorator.temperatureMax(unit: .metric)

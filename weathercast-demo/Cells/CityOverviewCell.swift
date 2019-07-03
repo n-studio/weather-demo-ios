@@ -52,13 +52,13 @@ class CityOverviewCell: UICollectionViewCell {
             guard let todayForecast = self.forecasts.first else { return }
 
             let todayForecastDecorator = ForecastDecorator(forecast: todayForecast)
-            self.timezone = todayForecastDecorator.timezone()
+            self.timezone = todayForecastDecorator.timezone
             self.temperatureLabel?.text = todayForecastDecorator.temperature(unit: .metric)
-            self.weatherLabel?.text = todayForecastDecorator.weather()
+            self.weatherLabel?.text = todayForecastDecorator.weather
             self.weatherIcon?.image = todayForecastDecorator.weatherIcon()
-            self.temperatureMinIcon?.image = todayForecastDecorator.temperatureMinIcon()
+            self.temperatureMinIcon?.image = todayForecastDecorator.temperatureMinIcon
             self.temperatureMinLabel?.text = todayForecastDecorator.temperatureMin(unit: .metric)
-            self.temperatureMaxIcon?.image = todayForecastDecorator.temperatureMaxIcon()
+            self.temperatureMaxIcon?.image = todayForecastDecorator.temperatureMaxIcon
             self.temperatureMaxLabel?.text = todayForecastDecorator.temperatureMax(unit: .metric)
 
             self.weekForecastView?.reloadData()

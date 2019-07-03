@@ -20,7 +20,7 @@ class CityDetailViewController: UITableViewController {
         }
     }
     var cityName: String?
-    var forecasts: [Forecast] = []
+    var groupedForecastDecorators: [[ForecastDecorator]] = []
 
     @IBOutlet var backButton: UIButton?
     @IBOutlet var cityLabel: UILabel?
@@ -29,7 +29,7 @@ class CityDetailViewController: UITableViewController {
     @IBOutlet var separatorBar: UIView?
 
     @IBAction func dismiss(_ sender: Any) {
-        forecasts = []
+        self.groupedForecastDecorators = []
         self.dismiss(animated: true) {
             
         }
@@ -51,6 +51,7 @@ class CityDetailViewController: UITableViewController {
         super.viewWillAppear(animated)
 
         setOutletsUI()
+        fetchData()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -67,16 +68,30 @@ class CityDetailViewController: UITableViewController {
 
 extension CityDetailViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return self.groupedForecastDecorators.count
+    }
+
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if let forecastDecorator = self.groupedForecastDecorators[section].first {
+            return forecastDecorator.weekday
+        }
+        return ""
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return forecasts.count
+        return self.groupedForecastDecorators[section].count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HourlyWeatherCell",
                                                  for: indexPath) as! HourlyWeatherCell
+        let forecastDecorator = self.groupedForecastDecorators[indexPath.section][indexPath.row]
+        cell.hourLabel?.text = forecastDecorator.hour
+        cell.weatherIcon?.image = forecastDecorator.weatherIcon(forceDayTime: true)
+        cell.tempMaxLabel?.text = forecastDecorator.temperatureMax(unit: .metric)
+        cell.tempMinLabel?.text = forecastDecorator.temperatureMin(unit: .metric)
+
+//        cell.layer.shouldRasterize = true
 
         return cell
     }
@@ -94,8 +109,10 @@ extension CityDetailViewController {
 
 extension CityDetailViewController: ClockDelegate {
     func clockDidTick(dateString: String, timeString: String) {
-        self.dateLabel?.text = dateString
-        self.timeLabel?.text = timeString
+        DispatchQueue.main.async {
+            self.dateLabel?.text = dateString
+            self.timeLabel?.text = timeString
+        }
     }
 }
 
@@ -107,10 +124,10 @@ extension CityDetailViewController {
     }
 
     private func setOutletsUI() {
-        guard let firstForecast = forecasts.first else { return }
-        let forecastDecorator = ForecastDecorator(forecast: firstForecast)
-        self.timezone = forecastDecorator.timezone()
-        self.cityLabel?.text = forecastDecorator.cityName()
+        guard let firstForecastDecorator = groupedForecastDecorators.first?.first else { return }
+        let forecastDecorator = firstForecastDecorator
+        self.timezone = forecastDecorator.timezone
+        self.cityLabel?.text = forecastDecorator.cityName
     }
 
     private func setSeparatorBarUI() {
@@ -120,5 +137,41 @@ extension CityDetailViewController {
 
     override var preferredStatusBarStyle : UIStatusBarStyle {
         return .lightContent
+    }
+}
+
+// MARK: Fetch data
+
+extension CityDetailViewController {
+    func fetchData() {
+        // Fetch data for all cities
+        let now = Date()
+        guard let city = cityName else { return }
+
+        let serialQueue = DispatchQueue(label: "coredata", qos: .background)
+        serialQueue.async {
+            let coreDataController = CoreDataController.shared
+            coreDataController.fetchIncomingForecasts(city: city, from: now, type: "3hourly") { (forecasts, error) in
+                if let error = error {
+                    NSLog(error.localizedDescription)
+                }
+                else {
+                    DispatchQueue.main.async {
+                        var currentWeekDay: String = ""
+                        for forecast in forecasts {
+                            let decorator = ForecastDecorator(forecast: forecast)
+                            decorator.compute()
+                            if currentWeekDay != decorator.weekday {
+                                self.groupedForecastDecorators.append([])
+                                currentWeekDay = decorator.weekday
+                            }
+                            self.groupedForecastDecorators[self.groupedForecastDecorators.count - 1].append(decorator)
+                        }
+                        self.setOutletsUI()
+                        self.tableView.reloadData()
+                    }
+                }
+            }
+        }
     }
 }

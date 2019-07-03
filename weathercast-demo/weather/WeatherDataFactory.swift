@@ -97,6 +97,15 @@ class WeatherDataFactory {
                     threeHoursMeasurement.windSpeed = (wind["speed"] as? NSNumber)?.floatValue
                 }
                 dailyMeasurement.append(threeHoursMeasurement)
+
+                // Store threeHoursMeasurement
+                let threeHourlyForecast = Forecast(context: managedContext)
+                guard let city = city else { continue }
+
+                assign(threeHourlyForecast, city: city)
+                assign(threeHourlyForecast, measurement: threeHoursMeasurement)
+                threeHourlyForecast.setValue("3hourly", forKeyPath: "type")
+                threeHourlyForecast.setValue(now, forKeyPath: "createdAt")
             }
             digestMeasurements.append(digestThreeHoursMeasurementToDailyMeasurement(dailyMeasurement))
         }

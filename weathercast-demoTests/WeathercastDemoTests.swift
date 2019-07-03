@@ -33,7 +33,7 @@ class WeathercastDemoTests: XCTestCase {
 
         let controller = WeatherController()
         let now = Date(timeIntervalSince1970: TimeInterval(1560589200))
-        controller.fetchForecast(city: "Paris", country: "fr", from: now) { forecasts, error in
+        controller.fetchForecast(city: "Paris", country: "fr", from: now, type: "daily") { forecasts, error in
             assert(forecasts.count == 6, "Wrong count of forecasts \(forecasts.count)")
             guard let forecast = forecasts.first else {
                 assert(false)
@@ -61,7 +61,7 @@ class WeathercastDemoTests: XCTestCase {
             expectation.fulfill()
         }
 
-        wait(for: [expectation], timeout: 1.0)
+        wait(for: [expectation], timeout: 5.0)
     }
     
     private func stubForecast() -> StubRequest {

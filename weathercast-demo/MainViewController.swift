@@ -68,34 +68,7 @@ class MainViewController: UICollectionViewController, UIViewControllerTransition
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        // Fetch data for all cities
-        let now = Date()
-        let serialQueue = DispatchQueue(label: "SerialQueue")
-        for index in 0..<cities.count {
-            let city = self.cities[index].name
-            let country = self.cities[index].country
-            weatherController.fetchForecast(city: city, country: country, from: now) { (forecasts, error) in
-                if let error = error {
-                    NSLog(error.localizedDescription)
-                }
-                else {
-                    serialQueue.sync {
-                        self.cities[index].forecasts = forecasts
-                        DispatchQueue.main.async {
-                            self.collectionView.reloadItems(at: [IndexPath(row: index, section: 0)])
-                        }
-                    }
-                }
-            }
-            fetchBackgroundImage(query: city) { (image) in
-                serialQueue.sync {
-                    self.cityImages[index] = image.alpha(0.8)
-                    DispatchQueue.main.async {
-                        self.collectionView.reloadItems(at: [IndexPath(row: index, section: 0)])
-                    }
-                }
-            }
-        }
+        fetchData()
     }
 }
 
@@ -174,6 +147,41 @@ extension MainViewController {
         openPhotosApiController.searchPhoto(query: query) { (urlString) in
             self.openPhotosApiController.getPhoto(query: query, urlString: urlString) { (image) in
                 completion(image)
+            }
+        }
+    }
+}
+
+// MARK: Fetch data
+
+extension MainViewController {
+    func fetchData() {
+        // Fetch data for all cities
+        let now = Date()
+        let serialQueue = DispatchQueue(label: "SerialQueue")
+        for index in 0..<cities.count {
+            let city = self.cities[index].name
+            let country = self.cities[index].country
+            weatherController.fetchForecast(city: city, country: country, from: now, type: "daily") { (forecasts, error) in
+                if let error = error {
+                    NSLog(error.localizedDescription)
+                }
+                else {
+                    serialQueue.sync {
+                        self.cities[index].forecasts = forecasts
+                        DispatchQueue.main.async {
+                            self.collectionView.reloadItems(at: [IndexPath(row: index, section: 0)])
+                        }
+                    }
+                }
+            }
+            fetchBackgroundImage(query: city) { (image) in
+                serialQueue.sync {
+                    self.cityImages[index] = image.alpha(0.8)
+                    DispatchQueue.main.async {
+                        self.collectionView.reloadItems(at: [IndexPath(row: index, section: 0)])
+                    }
+                }
             }
         }
     }
