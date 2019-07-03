@@ -44,26 +44,7 @@ class CityOverviewCell: UICollectionViewCell {
         }
     }
 
-    var forecasts: WeakArray<Forecast> = [] {
-        didSet {
-            if self.forecasts.count <= 0 {
-                return
-            }
-            guard let todayForecast = self.forecasts.first else { return }
-
-            let todayForecastDecorator = ForecastDecorator(forecast: todayForecast)
-            self.timezone = todayForecastDecorator.timezone
-            self.temperatureLabel?.text = todayForecastDecorator.temperature(unit: .metric)
-            self.weatherLabel?.text = todayForecastDecorator.weather
-            self.weatherIcon?.image = todayForecastDecorator.weatherIcon()
-            self.temperatureMinIcon?.image = todayForecastDecorator.temperatureMinIcon
-            self.temperatureMinLabel?.text = todayForecastDecorator.temperatureMin(unit: .metric)
-            self.temperatureMaxIcon?.image = todayForecastDecorator.temperatureMaxIcon
-            self.temperatureMaxLabel?.text = todayForecastDecorator.temperatureMax(unit: .metric)
-
-            self.weekForecastView?.reloadData()
-        }
-    }
+    var forecastDecorators: WeakArray<ForecastDecorator> = []
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -114,13 +95,13 @@ class CityOverviewCell: UICollectionViewCell {
 extension CityOverviewCell: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return [forecasts.count - 1, 5].min() ?? 0
+        return [forecastDecorators.count - 1, 5].min() ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DayForecastCell",
                                                       for: indexPath) as! DayForecastCell
-        cell.forecast = forecasts[indexPath.row + 1]
+        cell.forecastDecorator = forecastDecorators[indexPath.row + 1]
         return cell
     }
 }
@@ -199,5 +180,25 @@ extension CityOverviewCell {
     private func setShadowsUI() {
         self.contentView.addShadowToSubviews()
         self.temperatureMaxMinStackView?.addShadowToSubviews()
+    }
+
+    func reload() {
+        if self.forecastDecorators.count <= 0 {
+            return
+        }
+        guard let todayForecastDecorator = self.forecastDecorators.first else { return }
+
+        self.timezone = todayForecastDecorator.timezone
+        DispatchQueue.main.async {
+            self.temperatureLabel?.text = todayForecastDecorator.temperature(unit: .metric)
+            self.weatherLabel?.text = todayForecastDecorator.weather
+            self.weatherIcon?.image = todayForecastDecorator.weatherIcon()
+            self.temperatureMinIcon?.image = todayForecastDecorator.temperatureMinIcon
+            self.temperatureMinLabel?.text = todayForecastDecorator.temperatureMin(unit: .metric)
+            self.temperatureMaxIcon?.image = todayForecastDecorator.temperatureMaxIcon
+            self.temperatureMaxLabel?.text = todayForecastDecorator.temperatureMax(unit: .metric)
+
+            self.weekForecastView?.reloadData()
+        }
     }
 }

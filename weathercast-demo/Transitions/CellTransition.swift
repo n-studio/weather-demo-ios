@@ -12,6 +12,14 @@ class CellTransition: NSObject, UIViewControllerAnimatedTransitioning {
     let animationDuration = 0.5
     var pop = false
 
+    lazy var marginTop: CGFloat = {
+        return 20.0
+    }()
+
+    lazy var marginLeft: CGFloat = {
+        return 10.0
+    }()
+
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return animationDuration
     }
@@ -43,7 +51,7 @@ class CellTransition: NSObject, UIViewControllerAnimatedTransitioning {
             toBackgroundView.frame = CGRect(origin: .zero,
                                               size: containerView.bounds.size)
             toContentViewSnapshot.frame = toBackgroundView.frame
-            toContentViewSnapshot.frame.origin.y = 20
+            toContentViewSnapshot.frame.origin.y = marginTop
             let tableView = UIView(frame: CGRect(origin: CGPoint(x: 0, y: (fromViewController.separatorBar?.frame.origin.y ?? 0)), size: containerView.bounds.size))
             tableView.backgroundColor = .white
             tableView.topRoundedCorners(cornerRadii: CGSize(width: 10, height: 10))
@@ -58,7 +66,10 @@ class CellTransition: NSObject, UIViewControllerAnimatedTransitioning {
             containerView.addSubview(toView)
 
             UIView.animate(withDuration: animationDuration, delay: 0, options: .curveEaseOut, animations: {
-                toBackgroundView.frame = CGRect(x: 10, y: 20, width: 300, height: 480)
+                toBackgroundView.frame = CGRect(x: MainViewController.cellMargins.width / 2,
+                                                y: MainViewController.statusBarHeight(),
+                                                width: containerView.bounds.size.width - MainViewController.cellMargins.width,
+                                                height: containerView.bounds.size.height - MainViewController.cellMargins.height)
                 toBackgroundView.layer.cornerRadius = CityOverviewCell.cornerRadius
                 tableView.frame.origin.y = containerView.bounds.height
             }) { finished in
@@ -85,7 +96,7 @@ class CellTransition: NSObject, UIViewControllerAnimatedTransitioning {
             guard let toView = toViewController.view else { return }
 
             toView.isHidden = true
-            fromBackgroundView.frame = CGRect(origin: CGPoint(x: fromViewController.cellMargins.width / 2,
+            fromBackgroundView.frame = CGRect(origin: CGPoint(x: MainViewController.cellMargins.width / 2,
                                                               y: fromViewController.flowLayout?.headerReferenceSize.height ?? 0),
                                               size: fromContentViewSnapshot.bounds.size)
             fromContentViewSnapshot.frame = fromBackgroundView.frame

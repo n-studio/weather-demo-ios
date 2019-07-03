@@ -30,19 +30,26 @@ struct Measurement {
 }
 
 class WeatherDataFactory {
-    func parseAndBuildForecastsFrom(jsonData: Data) -> [Forecast] {
+    typealias ForecastResult = ([Forecast], Error?) -> ()
+
+    func parseAndBuildForecastsFrom(jsonData: Data, completion: @escaping ForecastResult) {
         var forecasts: [Forecast] = []
         let now = Date()
 
-        let managedContext = CoreDataController.shared.persistentContainer.viewContext
         guard let json = try! JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any],
-            let list = json["list"] as? [[String: Any]] else { return forecasts }
+            let list = json["list"] as? [[String: Any]] else {
+                completion(forecasts, UnknownError.withMessage(string: "JSON parsing failed"))
+                return
+            }
 
-        let city = json["city"] as? [String: Any]
+        guard let city = json["city"] as? [String: Any] else {
+            completion(forecasts, UnknownError.withMessage(string: "City not found"))
+            return
+        }
 
         var groupedData: [[[String: Any]]] = []
         var calendar = Calendar.current
-        if let cityTimezone = city?["timezone"] as? Int, let timezone = TimeZone(secondsFromGMT: cityTimezone) {
+        if let cityTimezone = city["timezone"] as? Int, let timezone = TimeZone(secondsFromGMT: cityTimezone) {
             calendar.timeZone = timezone
         }
         var previousDay: Int = 0
@@ -99,29 +106,32 @@ class WeatherDataFactory {
                 dailyMeasurement.append(threeHoursMeasurement)
 
                 // Store threeHoursMeasurement
-                let threeHourlyForecast = Forecast(context: managedContext)
-                guard let city = city else { continue }
-
-                assign(threeHourlyForecast, city: city)
-                assign(threeHourlyForecast, measurement: threeHoursMeasurement)
-                threeHourlyForecast.setValue("3hourly", forKeyPath: "type")
-                threeHourlyForecast.setValue(now, forKeyPath: "createdAt")
+                CoreDataController.shared.persistentContainer.performBackgroundTask() { context in
+                    let threeHourlyForecast = Forecast(context: context)
+                    self.assign(threeHourlyForecast, city: city)
+                    threeHourlyForecast.setValue("3hourly", forKeyPath: "type")
+                    threeHourlyForecast.setValue(now, forKeyPath: "createdAt")
+                }
             }
             digestMeasurements.append(digestThreeHoursMeasurementToDailyMeasurement(dailyMeasurement))
         }
 
-        for dailyMeasurement in digestMeasurements {
-            let forecast = Forecast(context: managedContext)
-            guard let city = city else { continue }
+        CoreDataController.shared.persistentContainer.performBackgroundTask() { context in
+            for dailyMeasurement in digestMeasurements {
+                let forecast = Forecast(context: context)
 
-            assign(forecast, city: city)
-            assign(forecast, measurement: dailyMeasurement)
-            forecast.setValue("daily", forKeyPath: "type")
-            forecast.setValue(now, forKeyPath: "createdAt")
-            forecasts.append(forecast)
+                self.assign(forecast, city: city)
+                self.assign(forecast, measurement: dailyMeasurement)
+                forecast.setValue("daily", forKeyPath: "type")
+                forecast.setValue(now, forKeyPath: "createdAt")
+                forecasts.append(forecast)
+            }
+            do {
+                CoreDataController.shared.save(withContext: context)
+            }
+
+            completion(forecasts, nil)
         }
-
-        return forecasts
     }
 
     func digestThreeHoursMeasurementToDailyMeasurement(_ measurements: [Measurement]) -> Measurement {

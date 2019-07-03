@@ -29,6 +29,16 @@ class ForecastDecorator {
         self.forecast = forecast
     }
 
+    static func collection(_ collection: [Forecast]) -> [ForecastDecorator] {
+        var decorators: [ForecastDecorator] = []
+        for item in collection {
+            let decorator = ForecastDecorator(forecast: item)
+            decorator.compute()
+            decorators.append(decorator)
+        }
+        return decorators
+    }
+
     lazy var cityName: String = {
         return forecast?.cityName ?? ""
     }()
@@ -107,6 +117,8 @@ class ForecastDecorator {
         _ = timezone
         _ = hour
         _ = weekday
+        _ = weather
+        _ = temp
         _ = temperatureMaxIcon
         _ = tempMax
         _ = tempMin

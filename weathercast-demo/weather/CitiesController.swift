@@ -11,15 +11,15 @@ import Foundation
 struct City {
     var name: String
     var country: String
-    var forecasts: [Forecast]?
+    var forecastDecorators: [ForecastDecorator]?
 }
 
 class CitiesController {
     lazy var cities: [City] = {
         return [
-            City(name: "Paris", country: "fr", forecasts: nil),
-            City(name: "London", country: "gb", forecasts: nil),
-            City(name: "Tokyo", country: "jp", forecasts: nil)
+            City(name: "Paris", country: "fr", forecastDecorators: nil),
+            City(name: "London", country: "gb", forecastDecorators: nil),
+            City(name: "Tokyo", country: "jp", forecastDecorators: nil)
         ]
     }()
 }

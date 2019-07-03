@@ -32,6 +32,8 @@
 		E253B7FE22CC3892008F2DDC /* CityDetailViewController+DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E253B7FD22CC3892008F2DDC /* CityDetailViewController+DataSource.swift */; };
 		E253B80022CC3906008F2DDC /* CityDetailViewController+Clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E253B7FF22CC3906008F2DDC /* CityDetailViewController+Clock.swift */; };
 		E253B80222CC392B008F2DDC /* CityDetailViewController+FetchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E253B80122CC392B008F2DDC /* CityDetailViewController+FetchData.swift */; };
+		E253B80422CD269C008F2DDC /* CityDetailViewController+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E253B80322CD269C008F2DDC /* CityDetailViewController+Delegate.swift */; };
+		E253B80622CD3CD6008F2DDC /* SeparatorBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E253B80522CD3CD6008F2DDC /* SeparatorBar.swift */; };
 		E25F61A122B4C98B00C08E50 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25F61A022B4C98B00C08E50 /* AppDelegate.swift */; };
 		E25F61A322B4C98B00C08E50 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25F61A222B4C98B00C08E50 /* MainViewController.swift */; };
 		E25F61A922B4C98B00C08E50 /* weathercast_demo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E25F61A722B4C98B00C08E50 /* weathercast_demo.xcdatamodeld */; };
@@ -102,6 +104,8 @@
 		E253B7FD22CC3892008F2DDC /* CityDetailViewController+DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CityDetailViewController+DataSource.swift"; sourceTree = "<group>"; };
 		E253B7FF22CC3906008F2DDC /* CityDetailViewController+Clock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CityDetailViewController+Clock.swift"; sourceTree = "<group>"; };
 		E253B80122CC392B008F2DDC /* CityDetailViewController+FetchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CityDetailViewController+FetchData.swift"; sourceTree = "<group>"; };
+		E253B80322CD269C008F2DDC /* CityDetailViewController+Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CityDetailViewController+Delegate.swift"; sourceTree = "<group>"; };
+		E253B80522CD3CD6008F2DDC /* SeparatorBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorBar.swift; sourceTree = "<group>"; };
 		E25F619D22B4C98B00C08E50 /* weathercast-demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "weathercast-demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E25F61A022B4C98B00C08E50 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E25F61A222B4C98B00C08E50 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -245,6 +249,7 @@
 				E281EFF222BE749D004F099A /* CityDetailViewController.swift */,
 				E253B7FF22CC3906008F2DDC /* CityDetailViewController+Clock.swift */,
 				E253B7FD22CC3892008F2DDC /* CityDetailViewController+DataSource.swift */,
+				E253B80322CD269C008F2DDC /* CityDetailViewController+Delegate.swift */,
 				E253B80122CC392B008F2DDC /* CityDetailViewController+FetchData.swift */,
 				E2165F2A22BFC00300CB1648 /* AutoLayout */,
 				E241011022B57AF500D18C3C /* Cells */,
@@ -325,6 +330,7 @@
 			isa = PBXGroup;
 			children = (
 				E2329F7D22C8C316005E14DC /* ViewTags.swift */,
+				E253B80522CD3CD6008F2DDC /* SeparatorBar.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -568,10 +574,12 @@
 				E25F61D822B4CE3000C08E50 /* OpenWeatherAPIController.swift in Sources */,
 				E26462F322B5AF0000F6EB80 /* UIImage+extension.swift in Sources */,
 				E2165F3022BFC1A100CB1648 /* UILabelHelper.swift in Sources */,
+				E253B80622CD3CD6008F2DDC /* SeparatorBar.swift in Sources */,
 				E266F47722BD85A800F2A4A2 /* CitiesController.swift in Sources */,
 				E2329F7E22C8C316005E14DC /* ViewTags.swift in Sources */,
 				E241011222B57B1B00D18C3C /* CityOverviewCell.swift in Sources */,
 				E2165F2322BF92E500CB1648 /* Clock.swift in Sources */,
+				E253B80422CD269C008F2DDC /* CityDetailViewController+Delegate.swift in Sources */,
 				E253B7FA22CC37A9008F2DDC /* MainViewController+FetchData.swift in Sources */,
 				E281EFF322BE749D004F099A /* CityDetailViewController.swift in Sources */,
 				E2C414B522BBFC92006EEAA5 /* Screen.swift in Sources */,

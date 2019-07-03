@@ -29,19 +29,20 @@ class WeatherController {
             }
             else if let jsonData = jsonData {
                 self?.coreDataController.cleanForecasts(city: city) {
-                    guard let forecasts = self?.weatherDataFactory.parseAndBuildForecastsFrom(jsonData: jsonData) else {
-                        completion([], UnknownError.withMessage(string: "[fetchForecast] Unkown Error"))
-                        return
-                    }
-                    self?.coreDataController.save()
-
-                    let incomingForecasts = forecasts.filter() { (forecast) -> Bool in
-                        if let data = forecast.date {
-                            return data >= from
+                    self?.weatherDataFactory.parseAndBuildForecastsFrom(jsonData: jsonData) { forecasts, error  in
+                        if let error = error {
+                            completion([], error)
                         }
-                        return false
+                        else {
+                            let incomingForecasts = forecasts.filter() { (forecast) -> Bool in
+                                if let data = forecast.date {
+                                    return data >= from
+                                }
+                                return false
+                            }
+                            completion(incomingForecasts, nil)
+                        }
                     }
-                    completion(incomingForecasts, nil)
                 }
             }
         }

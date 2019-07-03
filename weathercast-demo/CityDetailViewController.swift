@@ -27,7 +27,8 @@ class CityDetailViewController: UITableViewController {
     @IBAction func dismiss(_ sender: Any) {
         self.groupedForecastDecorators = []
         self.dismiss(animated: true) {
-            
+            self.groupedForecastDecorators = []
+            self.disableClock()
         }
     }
 
@@ -39,8 +40,6 @@ class CityDetailViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        setSeparatorBarUI()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -53,11 +52,6 @@ class CityDetailViewController: UITableViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
     }
-
-    deinit {
-        clock?.stopClock()
-        clock = nil
-    }
 }
 
 // MARK: UI Setup
@@ -65,6 +59,14 @@ class CityDetailViewController: UITableViewController {
 extension CityDetailViewController {
     private func setTableViewHeaderUI() {
         self.tableView.tableHeaderView?.addShadowToSubviews()
+        switch deviceSize {
+        case .i3_5Inch, .i4Inch:
+            self.tableView.tableHeaderView?.frame.size.height = 210
+        default:
+            self.tableView.tableHeaderView?.frame.size.height = 260
+        }
+
+        self.backButton?.addShadow()
     }
 
     func setOutletsUI() {
@@ -72,11 +74,6 @@ extension CityDetailViewController {
         let forecastDecorator = firstForecastDecorator
         self.timezone = forecastDecorator.timezone
         self.cityLabel?.text = forecastDecorator.cityName
-    }
-
-    private func setSeparatorBarUI() {
-        self.separatorBar?.topRoundedCorners(cornerRadii: CGSize(width: 10, height: 10))
-        self.separatorBar?.addShadow(offset: CGSize(width: 0, height: -10))
     }
 
     override var preferredStatusBarStyle : UIStatusBarStyle {

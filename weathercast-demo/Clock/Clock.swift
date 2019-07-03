@@ -35,16 +35,16 @@ class Clock {
     func startClock() {
         stopClock()
         tickClock()
-        timer = Timer.scheduledTimer(timeInterval: 10.0,
-                                     target: self,
-                                     selector: #selector(tickClock),
-                                     userInfo: nil,
-                                     repeats: true)
+        self.timer = Timer.scheduledTimer(timeInterval: 10.0,
+                                          target: self,
+                                          selector: #selector(tickClock),
+                                          userInfo: nil,
+                                          repeats: true)
     }
 
     func stopClock() {
-        timer?.invalidate()
-        timer = nil
+        self.timer?.invalidate()
+        self.timer = nil
     }
 
     @objc func tickClock() {

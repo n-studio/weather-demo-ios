@@ -16,7 +16,7 @@ extension MainViewController {
     func fetchData() {
         // Fetch data for all cities
         let now = Date()
-        let serialQueue = DispatchQueue(label: "SerialQueue")
+        let serialQueue = DispatchQueue(label: "com.solfanto.weather.SerialQueue", qos: .userInitiated)
         for index in 0..<cities.count {
             let city = self.cities[index].name
             let country = self.cities[index].country
@@ -26,7 +26,7 @@ extension MainViewController {
                 }
                 else {
                     serialQueue.sync {
-                        self.cities[index].forecasts = forecasts
+                        self.cities[index].forecastDecorators = ForecastDecorator.collection(forecasts)
                         DispatchQueue.main.async {
                             self.collectionView.reloadItems(at: [IndexPath(row: index, section: 0)])
                         }
@@ -42,6 +42,10 @@ extension MainViewController {
                 }
             }
         }
+    }
+
+    func fetchImages() {
+
     }
 
     private func fetchBackgroundImage(query: String, completion: @escaping ImageResult) {

@@ -28,12 +28,13 @@ extension MainViewController {
         cell.cityName = self.cities[indexPath.row].name
         cell.backgroundImage = self.cityImages[indexPath.row]
 
-        guard let forecasts = self.cities[indexPath.row].forecasts else { return cell }
+        guard let forecastDecorators = self.cities[indexPath.row].forecastDecorators else { return cell }
 
-        cell.forecasts = []
-        for forecast in forecasts {
-            cell.forecasts.append(forecast)
+        cell.forecastDecorators = []
+        for forecastDecorator in forecastDecorators {
+            cell.forecastDecorators.append(forecastDecorator)
         }
+        cell.reload()
         return cell
     }
 }

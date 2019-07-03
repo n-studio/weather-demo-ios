@@ -19,6 +19,11 @@ extension CityDetailViewController: ClockDelegate {
         clock?.startClock()
     }
 
+    func disableClock() {
+        clock?.stopClock()
+        clock = nil
+    }
+
     func clockDidTick(dateString: String, timeString: String) {
         DispatchQueue.main.async {
             self.dateLabel?.text = dateString

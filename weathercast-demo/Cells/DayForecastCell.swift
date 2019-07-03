@@ -18,10 +18,9 @@ class DayForecastCell: UICollectionViewCell {
         super.init(coder: aDecoder)
     }
 
-    weak var forecast: Forecast? {
+    weak var forecastDecorator: ForecastDecorator? {
         didSet {
-            guard let forecast = self.forecast else { return }
-            let forecastDecorator = ForecastDecorator(forecast: forecast)
+            guard let forecastDecorator = self.forecastDecorator else { return }
             self.dayLabel?.text = forecastDecorator.weekday
             self.weatherIcon?.image = forecastDecorator.weatherIcon(forceDayTime: true)
             self.tempMinLabel?.text = forecastDecorator.temperatureMin(unit: .metric)
