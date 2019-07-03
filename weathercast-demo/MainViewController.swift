@@ -36,6 +36,20 @@ class MainViewController: UICollectionViewController, UIViewControllerTransition
         super.viewDidLoad()
         self.view.backgroundColor = .white
 
+        setCollectionView()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        fetchData()
+    }
+}
+
+// MARK: UICollectionView
+
+extension MainViewController {
+    private func setCollectionView() {
         // Set UICollectionView
         flowLayout = UICollectionViewFlowLayout()
         if let flowLayout = flowLayout {
@@ -63,126 +77,5 @@ class MainViewController: UICollectionViewController, UIViewControllerTransition
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.alwaysBounceVertical = true
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        fetchData()
-    }
-}
-
-// MARK: UICollectionViewDataSource
-
-extension MainViewController {
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-
-    override func collectionView(_ collectionView: UICollectionView,
-                                 numberOfItemsInSection section: Int) -> Int {
-        return self.cities.count
-    }
-
-    override func collectionView(_ collectionView: UICollectionView,
-                                 cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CityOverviewCell",
-                                                      for: indexPath) as! CityOverviewCell
-
-        cell.cityName = self.cities[indexPath.row].name
-        cell.backgroundImage = self.cityImages[indexPath.row]
-
-        guard let forecasts = self.cities[indexPath.row].forecasts else { return cell }
-        
-        cell.forecasts = []
-        for forecast in forecasts {
-            cell.forecasts.append(forecast)
-        }
-        return cell
-    }
-}
-
-// MARK: UICollectionViewDelegate
-
-extension MainViewController {
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        selectedCellImage = self.cityImages[indexPath.row]
-
-        guard let cell = collectionView.cellForItem(at: indexPath) else { return }
-
-        selectedCellSnapshot = UIImageView(image: UIImage(view: cell.contentView))
-    }
-}
-
-// MARK: Segues
-
-extension MainViewController {
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "CityDetailViewSegue" {
-            guard let vc = segue.destination as? CityDetailViewController else { return }
-            vc.transitioningDelegate = self
-            vc.modalPresentationStyle = .custom
-            guard let indexPath = collectionView.indexPathsForSelectedItems?.first else { return }
-            guard let cell = sender as? CityOverviewCell else { return }
-            vc.cityName = self.cities[indexPath.row].name
-            if let image = (cell.backgroundView as? UIImageView)?.image {
-                let backgroundView = UIImageView(image: image)
-                backgroundView.contentMode = .scaleAspectFill
-                vc.tableView.backgroundView = backgroundView
-            }
-        }
-    }
-}
-
-// MARK: BackgroundImage
-
-extension MainViewController {
-    typealias ImageResult = (UIImage) -> ()
-
-    private func fetchBackgroundImage(query: String, completion: @escaping ImageResult) {
-        if let photoFromCache = openPhotosApiController.photosCache.object(forKey: query) as? UIImage {
-            completion(photoFromCache)
-            return
-        }
-        openPhotosApiController.searchPhoto(query: query) { (urlString) in
-            self.openPhotosApiController.getPhoto(query: query, urlString: urlString) { (image) in
-                completion(image)
-            }
-        }
-    }
-}
-
-// MARK: Fetch data
-
-extension MainViewController {
-    func fetchData() {
-        // Fetch data for all cities
-        let now = Date()
-        let serialQueue = DispatchQueue(label: "SerialQueue")
-        for index in 0..<cities.count {
-            let city = self.cities[index].name
-            let country = self.cities[index].country
-            weatherController.fetchForecast(city: city, country: country, from: now, type: "daily") { (forecasts, error) in
-                if let error = error {
-                    NSLog(error.localizedDescription)
-                }
-                else {
-                    serialQueue.sync {
-                        self.cities[index].forecasts = forecasts
-                        DispatchQueue.main.async {
-                            self.collectionView.reloadItems(at: [IndexPath(row: index, section: 0)])
-                        }
-                    }
-                }
-            }
-            fetchBackgroundImage(query: city) { (image) in
-                serialQueue.sync {
-                    self.cityImages[index] = image.alpha(0.8)
-                    DispatchQueue.main.async {
-                        self.collectionView.reloadItems(at: [IndexPath(row: index, section: 0)])
-                    }
-                }
-            }
-        }
     }
 }
