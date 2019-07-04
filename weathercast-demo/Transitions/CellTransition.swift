@@ -12,14 +12,6 @@ class CellTransition: NSObject, UIViewControllerAnimatedTransitioning {
     let animationDuration = 0.5
     var pop = false
 
-    lazy var marginTop: CGFloat = {
-        return 20.0
-    }()
-
-    lazy var marginLeft: CGFloat = {
-        return 10.0
-    }()
-
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return animationDuration
     }
@@ -51,7 +43,7 @@ class CellTransition: NSObject, UIViewControllerAnimatedTransitioning {
             toBackgroundView.frame = CGRect(origin: .zero,
                                               size: containerView.bounds.size)
             toContentViewSnapshot.frame = toBackgroundView.frame
-            toContentViewSnapshot.frame.origin.y = marginTop
+            toContentViewSnapshot.frame.origin.y = MainViewController.statusBarHeight()
             let tableView = UIView(frame: CGRect(origin: CGPoint(x: 0, y: (fromViewController.separatorBar?.frame.origin.y ?? 0)), size: containerView.bounds.size))
             tableView.backgroundColor = .white
             tableView.topRoundedCorners(cornerRadii: CGSize(width: 10, height: 10))

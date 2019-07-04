@@ -59,12 +59,7 @@ class CityDetailViewController: UITableViewController {
 extension CityDetailViewController {
     private func setTableViewHeaderUI() {
         self.tableView.tableHeaderView?.addShadowToSubviews()
-        switch deviceSize {
-        case .i3_5Inch, .i4Inch:
-            self.tableView.tableHeaderView?.frame.size.height = 210
-        default:
-            self.tableView.tableHeaderView?.frame.size.height = 260
-        }
+        self.tableView.tableHeaderView?.frame.size.height = CityDetailViewController.tableViewHeaderHeight()
 
         self.backButton?.addShadow()
     }
@@ -74,6 +69,15 @@ extension CityDetailViewController {
         let forecastDecorator = firstForecastDecorator
         self.timezone = forecastDecorator.timezone
         self.cityLabel?.text = forecastDecorator.cityName
+    }
+
+    static func tableViewHeaderHeight() -> CGFloat {
+        switch deviceSize {
+        case .i3_5Inch, .i4Inch:
+            return 210
+        default:
+            return 260
+        }
     }
 
     override var preferredStatusBarStyle : UIStatusBarStyle {

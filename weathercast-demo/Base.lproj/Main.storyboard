@@ -264,7 +264,7 @@
                                                 <real key="value" value="20"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="number" keyPath="iPhone8">
-                                                <real key="value" value="40"/>
+                                                <real key="value" value="20"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="number" keyPath="iPhone8Plus">
                                                 <real key="value" value="40"/>
@@ -436,7 +436,25 @@
                                 <constraint firstItem="GeS-bw-pIg" firstAttribute="top" secondItem="Co2-T1-1In" secondAttribute="bottom" constant="4" id="M5J-fh-rO7"/>
                                 <constraint firstAttribute="trailing" secondItem="CTm-VI-cKe" secondAttribute="trailing" id="Nil-WK-PJW"/>
                                 <constraint firstItem="Co2-T1-1In" firstAttribute="leading" secondItem="vUS-Zl-Ekj" secondAttribute="leading" constant="10" id="UXN-IQ-Hmt"/>
-                                <constraint firstItem="Co2-T1-1In" firstAttribute="top" secondItem="vUS-Zl-Ekj" secondAttribute="top" constant="30" id="j6C-Bl-M9W"/>
+                                <constraint firstItem="Co2-T1-1In" firstAttribute="top" secondItem="vUS-Zl-Ekj" secondAttribute="top" constant="30" id="j6C-Bl-M9W" customClass="NSLayoutHelper" customModule="weathercast_demo" customModuleProvider="target">
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="iPhoneXR">
+                                            <real key="value" value="48"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="iPhone8">
+                                            <real key="value" value="48"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="iPhone8Plus">
+                                            <real key="value" value="48"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="iPhoneXS">
+                                            <real key="value" value="48"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="iPhoneXMax">
+                                            <real key="value" value="48"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </constraint>
                                 <constraint firstAttribute="trailing" secondItem="GeS-bw-pIg" secondAttribute="trailing" constant="10" id="jBU-e1-fXQ"/>
                                 <constraint firstItem="CTm-VI-cKe" firstAttribute="leading" secondItem="vUS-Zl-Ekj" secondAttribute="leading" id="l8A-r2-bsi"/>
                                 <constraint firstAttribute="trailing" secondItem="Co2-T1-1In" secondAttribute="trailing" constant="10" id="qnM-Tf-MZu"/>
