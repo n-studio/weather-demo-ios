@@ -29,7 +29,7 @@ class WeathercastDemoTests: XCTestCase {
     }
 
     func testForecastRecord() {
-        let expectation = XCTestExpectation(description: "Get HTTP response")
+        let expectation0 = XCTestExpectation(description: "Get HTTP response")
 
         let controller = WeatherController()
         let now = Date(timeIntervalSince1970: TimeInterval(1560589200))
@@ -58,10 +58,40 @@ class WeathercastDemoTests: XCTestCase {
             assert(forecast.weatherMain == "Rain", "Wrong weather_main: \(String(describing: forecast.weatherMain))")
             assert(forecast.windDeg.rounded(precision: 3) == 237.109, "Wrong wind_deg: \(forecast.windDeg)")
             assert(forecast.windSpeed.rounded(precision: 3) == 4.904, "Wrong wind_speed: \(forecast.windSpeed)")
-            expectation.fulfill()
+            expectation0.fulfill()
         }
 
-        wait(for: [expectation], timeout: 5.0)
+        wait(for: [expectation0], timeout: 5.0)
+
+        let expectation1 = XCTestExpectation(description: "Get CoreData response")
+
+        let coredata = CoreDataController()
+        coredata.fetchIncomingForecasts(city: "Paris", from: now, type: "3hourly") { (forecasts, _error) in
+            guard let forecast = forecasts.first else {
+                assert(false)
+                return
+            }
+            assert(forecast.cityName == "Paris", "Wrong city_name: \(String(describing: forecast.cityName))")
+            assert(forecast.cloudsAll == 23.0, "Wrong clouds_all: \(forecast.cloudsAll)")
+            assert(forecast.date!.timeIntervalSince1970 == 1560589200, "Wrong date: \(forecast.date!.timeIntervalSince1970)")
+            assert(forecast.grndLevel.rounded(precision: 3) == 1005.15, "Wrong grnd_level: \(forecast.grndLevel)")
+            assert(forecast.humidity.rounded(precision: 3) == 51.0, "Wrong humidity: \(forecast.humidity)")
+            assert(forecast.pressure.rounded(precision: 3) == 1016.18, "Wrong pressure: \(forecast.pressure)")
+            assert(forecast.rain3h.rounded(precision: 3) == 0.188, "Wrong rain_3h: \(forecast.rain3h)")
+            assert(forecast.seaLevel.rounded(precision: 3) == 1016.18, "Wrong sea_level: \(forecast.seaLevel)")
+            assert(forecast.snow3h.rounded(precision: 3) == 0, "Wrong snow_3h: \(forecast.snow3h)")
+            assert(forecast.temp.rounded(precision: 3) == 294.06, "Wrong temp: \(forecast.temp)")
+            assert(forecast.tempMax.rounded(precision: 3) == 294.06, "Wrong temp_max: \(forecast.tempMax)")
+            assert(forecast.tempMin.rounded(precision: 3) == 290.6, "Wrong temp_min: \(forecast.tempMin)")
+            assert(forecast.weatherId == 801, "Wrong weather_description: \(String(describing: forecast.weatherId))")
+            assert(forecast.weatherDescription == "few clouds", "Wrong weather_description: \(String(describing: forecast.weatherDescription))")
+            assert(forecast.weatherIcon == "02d", "Wrong weather_icon: \(String(describing: forecast.weatherIcon))")
+            assert(forecast.weatherMain == "Clouds", "Wrong weather_main: \(String(describing: forecast.weatherMain))")
+            assert(forecast.windDeg.rounded(precision: 3) == 249.34, "Wrong wind_deg: \(forecast.windDeg)")
+            assert(forecast.windSpeed.rounded(precision: 3) == 4.63, "Wrong wind_speed: \(forecast.windSpeed)")
+            expectation1.fulfill()
+        }
+        wait(for: [expectation1], timeout: 5.0)
     }
     
     private func stubForecast() -> StubRequest {

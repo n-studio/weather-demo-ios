@@ -109,8 +109,11 @@ class WeatherDataFactory {
                 CoreDataController.shared.persistentContainer.performBackgroundTask() { context in
                     let threeHourlyForecast = Forecast(context: context)
                     self.assign(threeHourlyForecast, city: city)
+                    self.assign(threeHourlyForecast, measurement: threeHoursMeasurement)
                     threeHourlyForecast.setValue("3hourly", forKeyPath: "type")
                     threeHourlyForecast.setValue(now, forKeyPath: "createdAt")
+
+                    CoreDataController.shared.save(withContext: context)
                 }
             }
             digestMeasurements.append(digestThreeHoursMeasurementToDailyMeasurement(dailyMeasurement))

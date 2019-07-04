@@ -453,6 +453,21 @@
                                         <userDefinedRuntimeAttribute type="number" keyPath="iPhoneXMax">
                                             <real key="value" value="48"/>
                                         </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="iPadPro12_9">
+                                            <real key="value" value="58"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="iPadPro10_5">
+                                            <real key="value" value="58"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="iPadPro11">
+                                            <real key="value" value="58"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="iPadPro9_7">
+                                            <real key="value" value="58"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="iPadMini">
+                                            <real key="value" value="58"/>
+                                        </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </constraint>
                                 <constraint firstAttribute="trailing" secondItem="GeS-bw-pIg" secondAttribute="trailing" constant="10" id="jBU-e1-fXQ"/>

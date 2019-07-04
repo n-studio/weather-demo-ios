@@ -62,10 +62,19 @@ extension MainViewController {
 
             collectionView.isPagingEnabled = true
             collectionView.setCollectionViewLayout(flowLayout, animated: false)
-            collectionView.contentInset = UIEdgeInsets(top: -flowLayout.headerReferenceSize.height,
-                                                       left: 0,
-                                                       bottom: 0,
-                                                       right: 0)
+            if #available(iOS 11.0, *) {
+                collectionView.contentInset = UIEdgeInsets(top: -flowLayout.headerReferenceSize.height,
+                                                           left: 0,
+                                                           bottom: 0,
+                                                           right: 0)
+            }
+            else {
+                collectionView.contentInset = UIEdgeInsets(top: 0,
+                                                           left: 0,
+                                                           bottom: 0,
+                                                           right: 0)
+            }
+
         }
 
         collectionView.delegate = self

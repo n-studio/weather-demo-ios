@@ -40,6 +40,16 @@ class CityDetailViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        if #available(iOS 11.0, *) {
+            tableView.contentInset = .zero
+        }
+        else {
+            tableView.contentInset = UIEdgeInsets(top: UIApplication.shared.statusBarFrame.size.height,
+                                                  left: 0,
+                                                  bottom: 0,
+                                                  right: 0)
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {

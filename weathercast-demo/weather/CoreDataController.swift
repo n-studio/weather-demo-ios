@@ -46,6 +46,7 @@ class CoreDataController {
             } catch {
                 NSLog(error.localizedDescription)
             }
+            self.save(withContext: context)
             completion()
         }
     }

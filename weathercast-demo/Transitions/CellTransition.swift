@@ -44,7 +44,8 @@ class CellTransition: NSObject, UIViewControllerAnimatedTransitioning {
                                               size: containerView.bounds.size)
             toContentViewSnapshot.frame = toBackgroundView.frame
             toContentViewSnapshot.frame.origin.y = MainViewController.statusBarHeight()
-            let tableView = UIView(frame: CGRect(origin: CGPoint(x: 0, y: (fromViewController.separatorBar?.frame.origin.y ?? 0)), size: containerView.bounds.size))
+            let tableView = UIView(frame: CGRect(origin: CGPoint(x: 0, y: CityDetailViewController.tableViewHeaderHeight() + 10),
+                                                 size: containerView.bounds.size))
             tableView.backgroundColor = .white
             tableView.topRoundedCorners(cornerRadii: CGSize(width: 10, height: 10))
             tableView.addShadow(offset: CGSize(width: 0, height: -10))
@@ -105,7 +106,7 @@ class CellTransition: NSObject, UIViewControllerAnimatedTransitioning {
             UIView.animate(withDuration: animationDuration, delay: 0, options: .curveEaseOut, animations: {
                 fromBackgroundView.frame = containerView.bounds
                 fromBackgroundView.layer.cornerRadius = 0
-                tableView.frame.origin.y = (toViewController.separatorBar?.frame.origin.y ?? 0)
+                tableView.frame.origin.y = CityDetailViewController.tableViewHeaderHeight() + 10
             }) { finished in
                 if finished {
                     transitionContext.completeTransition(true)

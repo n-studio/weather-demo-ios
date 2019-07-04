@@ -17,6 +17,7 @@ enum UIDeviceSize  {
     case i7_9Inch
     case i9_7Inch
     case i10_5Inch
+    case i11Inch
     case i12_9Inch
     case unknown
 }
@@ -55,6 +56,8 @@ let deviceSize : UIDeviceSize = {
         }
     case 1112:
         return .i10_5Inch
+    case 1194:
+        return .i11Inch
     case 1366:
         return .i12_9Inch
     default:
@@ -90,6 +93,7 @@ public enum Model : String {
     //iPad pro
     iPadPro9_7         = "iPad Pro 9.7\"",
     iPadPro10_5        = "iPad Pro 10.5\"",
+    iPadPro11          = "iPad Pro 11\"",
     iPadPro12_9        = "iPad Pro 12.9\"",
     iPadPro2_12_9      = "iPad Pro 2 12.9\"",
     //iPhone
@@ -176,6 +180,8 @@ public extension UIDevice {
             "iPad6,8"   : .iPadPro12_9,
             "iPad7,1"   : .iPadPro2_12_9,
             "iPad7,2"   : .iPadPro2_12_9,
+            "iPad8,1"   : .iPadPro11,
+            "iPad8,2"   : .iPadPro11,
             //iPhone
             "iPhone3,1" : .iPhone4,
             "iPhone3,2" : .iPhone4,
