@@ -22,7 +22,6 @@ class CellTransition: NSObject, UIViewControllerAnimatedTransitioning {
         let containerView = transitionContext.containerView
 
         if pop {
-            guard let fromViewController = fromViewController as? CityDetailViewController else { return }
             guard let toViewController = toViewController as? MainViewController else { return }
 
             let toBackgroundView = UIImageView(image: toViewController.selectedCellImage)

@@ -47,7 +47,7 @@ let deviceSize : UIDeviceSize = {
         }
     case 1024:
         switch UIDevice().type {
-        case .iPadMini,.iPadMini2,.iPadMini3,.iPadMini4:
+        case .iPadMini,.iPadMini2,.iPadMini3,.iPadMini4,.iPadMini5:
             return .i7_9Inch
         case .iPadPro10_5:
             return .i10_5Inch
@@ -90,6 +90,7 @@ public enum Model : String {
     iPadMini2          = "iPad Mini 2",
     iPadMini3          = "iPad Mini 3",
     iPadMini4          = "iPad Mini 4",
+    iPadMini5          = "iPad Mini 5",
     //iPad pro
     iPadPro9_7         = "iPad Pro 9.7\"",
     iPadPro10_5        = "iPad Pro 10.5\"",
@@ -171,6 +172,8 @@ public extension UIDevice {
             "iPad4,9"   : .iPadMini3,
             "iPad5,1"   : .iPadMini4,
             "iPad5,2"   : .iPadMini4,
+            "iPad6,1"   : .iPadMini5,
+            "iPad6,2"   : .iPadMini5,
             //iPad pro
             "iPad6,3"   : .iPadPro9_7,
             "iPad6,4"   : .iPadPro9_7,

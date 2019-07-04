@@ -46,9 +46,7 @@ class CityDetailViewController: UITableViewController {
         }
         else {
             tableView.contentInset = UIEdgeInsets(top: UIApplication.shared.statusBarFrame.size.height,
-                                                  left: 0,
-                                                  bottom: 0,
-                                                  right: 0)
+                                                  left: 0, bottom: 0, right: 0)
         }
     }
 
@@ -85,8 +83,14 @@ extension CityDetailViewController {
         switch deviceSize {
         case .i3_5Inch, .i4Inch:
             return 210
-        default:
+        case .i5_8Inch:
             return 260
+        case .i7_9Inch, .i9_7Inch, .i10_5Inch, .i11Inch:
+            return 500
+        case .i12_9Inch:
+            return 600
+        default:
+            return 300
         }
     }
 

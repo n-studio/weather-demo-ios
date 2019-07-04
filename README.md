@@ -7,7 +7,7 @@
 # Weathercast
 
 * 5-days weather forecast for Paris, London and Tokyo
-* Details for current weather
+* Details for current weather and forecast for every 3 hours
 * Usable offline
 
 # Weather API

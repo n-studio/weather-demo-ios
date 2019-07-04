@@ -58,11 +58,19 @@
                                             <color key="textColor" red="0.99473684210000002" green="0.98947368420000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--°" lineBreakMode="headTruncation" minimumScaleFactor="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="2bW-6H-aaD">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--°" lineBreakMode="headTruncation" minimumScaleFactor="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="2bW-6H-aaD" customClass="UILabelHelper" customModule="weathercast_demo" customModuleProvider="target">
                                             <rect key="frame" x="30" y="526.5" width="244" height="81"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="90"/>
                                             <color key="textColor" red="0.99473684210000002" green="0.98947368420000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="iPhone8Plus">
+                                                    <real key="value" value="80"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="iPhone8">
+                                                    <real key="value" value="70"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
                                         </label>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6BM-Ua-RCx">
                                             <rect key="frame" x="30" y="434.5" width="44" height="44"/>
@@ -290,6 +298,9 @@
                                             <userDefinedRuntimeAttribute type="number" keyPath="iPadPro12_9">
                                                 <real key="value" value="40"/>
                                             </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="iPadPro11">
+                                                <real key="value" value="40"/>
+                                            </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </constraint>
                                     <constraint firstItem="a6d-fJ-8Op" firstAttribute="bottom" secondItem="6BM-Ua-RCx" secondAttribute="bottom" id="GaU-c6-hPQ"/>
@@ -454,19 +465,19 @@
                                             <real key="value" value="48"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="number" keyPath="iPadPro12_9">
-                                            <real key="value" value="58"/>
+                                            <real key="value" value="48"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="number" keyPath="iPadPro10_5">
-                                            <real key="value" value="58"/>
+                                            <real key="value" value="48"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="number" keyPath="iPadPro11">
-                                            <real key="value" value="58"/>
+                                            <real key="value" value="48"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="number" keyPath="iPadPro9_7">
-                                            <real key="value" value="58"/>
+                                            <real key="value" value="48"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="number" keyPath="iPadMini">
-                                            <real key="value" value="58"/>
+                                            <real key="value" value="48"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </constraint>

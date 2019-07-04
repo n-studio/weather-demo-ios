@@ -9,9 +9,10 @@
 import UIKit
 
 class MainViewController: UICollectionViewController, UIViewControllerTransitioningDelegate {
-    let weatherController = WeatherController()
+    static let cellMargins = CGSize(width: 20.0, height: 88.0)
     let minimumLineSpacing: CGFloat = 88.0
-    static let cellMargins = CGSize(width: 20, height: 88.0)
+
+    let weatherController = WeatherController()
     var cities: [City]
     var cityImages: [UIImage?]
     var selectedCellImage: UIImage?
@@ -30,6 +31,7 @@ class MainViewController: UICollectionViewController, UIViewControllerTransition
         let controller = CitiesController()
         self.cities = controller.cities
         self.cityImages = Array(repeating: nil, count: self.cities.count)
+
         super.init(coder: aDecoder)
     }
 
@@ -69,10 +71,7 @@ extension MainViewController {
                                                            right: 0)
             }
             else {
-                collectionView.contentInset = UIEdgeInsets(top: 0,
-                                                           left: 0,
-                                                           bottom: 0,
-                                                           right: 0)
+                collectionView.contentInset = UIEdgeInsets.zero
             }
 
         }
@@ -83,7 +82,7 @@ extension MainViewController {
     }
 }
 
-// MARK: Helper
+// MARK: UI Helper
 
 extension MainViewController {
     static func statusBarHeight() -> CGFloat {

@@ -13,13 +13,15 @@ import UIKit
 extension MainViewController {
     typealias ImageResult = (UIImage) -> ()
 
+    // Fetch data for all cities
     func fetchData() {
-        // Fetch data for all cities
         let now = Date()
         let serialQueue = DispatchQueue(label: "com.solfanto.weather.SerialQueue", qos: .userInitiated)
         for index in 0..<cities.count {
             let city = self.cities[index].name
             let country = self.cities[index].country
+
+            // Fetch weather data
             weatherController.fetchForecast(city: city, country: country, from: now, type: "daily") { (forecasts, error) in
                 if let error = error {
                     NSLog(error.localizedDescription)
@@ -33,6 +35,8 @@ extension MainViewController {
                     }
                 }
             }
+
+            // Fetch background images
             fetchBackgroundImage(query: city) { (image) in
                 serialQueue.sync {
                     self.cityImages[index] = image.alpha(0.8)
@@ -42,10 +46,6 @@ extension MainViewController {
                 }
             }
         }
-    }
-
-    func fetchImages() {
-
     }
 
     private func fetchBackgroundImage(query: String, completion: @escaping ImageResult) {
