@@ -34,7 +34,6 @@ extension CityDetailViewController {
         cell.weatherIcon?.image = forecastDecorator.weatherIcon(forceDayTime: true)
         cell.tempMaxLabel?.text = forecastDecorator.temperatureMax(unit: .metric)
         cell.tempMinLabel?.text = forecastDecorator.temperatureMin(unit: .metric)
-        cell.contentView.addShadowToSubviews(opacity: 0.3, radius: 2.0, offset: CGSize(width: 1, height: 1), color: .black)
 
         return cell
     }
