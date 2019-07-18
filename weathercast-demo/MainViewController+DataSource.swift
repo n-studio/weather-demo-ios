@@ -24,7 +24,7 @@ extension MainViewController {
                                  cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CityOverviewCell",
                                                       for: indexPath) as! CityOverviewCell
-
+        cell.openPhotosApiController = openPhotosApiController
         cell.cityName = self.cities[indexPath.row].name
         cell.backgroundImage = self.cityImages[indexPath.row]
 

@@ -9,16 +9,22 @@
 import Foundation
 
 class WeatherController {
-    let openWeatherAPIController = OpenWeatherAPIController()
-    let coreDataController = CoreDataController.shared
-    let weatherDataFactory = WeatherDataFactory()
-    typealias ForecastResult = ([Forecast], Error?) -> ()
+    var openWeatherAPIController: OpenWeatherAPIController?
+    var databaseController: DatabaseController?
+    var weatherDataFactory: WeatherDataFactory?
+    typealias ForecastResult = ([ForecastModel], Error?) -> ()
+
+    init(weatherAPIController: OpenWeatherAPIController, databaseController: DatabaseController, weatherDataFactory: WeatherDataFactory) {
+        self.openWeatherAPIController = weatherAPIController
+        self.databaseController = databaseController
+        self.weatherDataFactory = weatherDataFactory
+    }
 
     func fetchForecast(city: String, country: String, from: Date, type: String, completion: @escaping ForecastResult) {
-        openWeatherAPIController.requestForecast(city: city, country: country) { [weak self] (jsonData, error) in
+        openWeatherAPIController?.requestForecast(city: city, country: country) { [weak self] (jsonData, error) in
             if let _ = error {
                 let now = Date()
-                self?.coreDataController.fetchIncomingForecasts(city: city, from: now, type: type) { (forecasts, error) in
+                self?.databaseController?.fetchIncomingForecasts(city: city, from: now, type: type) { (forecasts, error) in
                     if let error = error {
                         completion([], error)
                     }
@@ -28,8 +34,8 @@ class WeatherController {
                 }
             }
             else if let jsonData = jsonData {
-                self?.coreDataController.cleanForecasts(city: city) {
-                    self?.weatherDataFactory.parseAndBuildForecastsFrom(jsonData: jsonData) { forecasts, error  in
+                self?.databaseController?.cleanForecasts(city: city) {
+                    self?.weatherDataFactory?.parseAndBuildForecastsFrom(jsonData: jsonData) { forecasts, error  in
                         if let error = error {
                             completion([], error)
                         }

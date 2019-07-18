@@ -35,7 +35,7 @@ class CityOverviewCell: UICollectionViewCell {
     }
     var clock: Clock?
 
-    let openPhotosApiController = OpenPhotosAPIController()
+    var openPhotosApiController: OpenPhotosAPIController?
     var cityName: String? {
         didSet {
             if self.cityLabel?.text == cityName { return }

@@ -18,6 +18,8 @@ class CityDetailViewController: UITableViewController {
     var cityName: String?
     var groupedForecastDecorators: [[ForecastDecorator]] = []
 
+    var databaseController: DatabaseController?
+
     @IBOutlet var backButton: UIButton?
     @IBOutlet var cityLabel: UILabel?
     @IBOutlet var dateLabel: UILabel?

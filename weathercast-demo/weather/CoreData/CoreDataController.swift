@@ -9,9 +9,9 @@
 import UIKit
 import CoreData
 
-class CoreDataController {
-    static let shared = CoreDataController()
-    typealias ForecastResult = ([Forecast], Error?) -> ()
+final class CoreDataController: DatabaseController {
+    static var shared = CoreDataController()
+    typealias ForecastResult = ([ForecastModel], Error?) -> ()
 
     func fetchIncomingForecasts(city: String, from: Date, type: String, completion: @escaping ForecastResult) {
         let predicate = NSPredicate(format: "date >= %@ AND cityIdentifier ==[c] %@ AND type == %@", argumentArray: [from, city, type])

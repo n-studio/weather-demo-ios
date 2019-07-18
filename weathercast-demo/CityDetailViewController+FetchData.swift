@@ -16,8 +16,7 @@ extension CityDetailViewController {
         let now = Date()
         guard let city = cityName else { return }
 
-        let coreDataController = CoreDataController.shared
-        coreDataController.fetchIncomingForecasts(city: city, from: now, type: "3hourly") { (forecasts, error) in
+        databaseController?.fetchIncomingForecasts(city: city, from: now, type: "3hourly") { (forecasts, error) in
             if let error = error {
                 NSLog(error.localizedDescription)
             }

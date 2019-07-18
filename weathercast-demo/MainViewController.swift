@@ -12,14 +12,21 @@ class MainViewController: UICollectionViewController, UIViewControllerTransition
     static let cellMargins = CGSize(width: 20.0, height: 88.0)
     let minimumLineSpacing: CGFloat = 88.0
 
-    let weatherController = WeatherController()
-    var cities: [City]
-    var cityImages: [UIImage?]
+    var cities: [City] = [] {
+        didSet {
+            if self.cityImages.count != self.cities.count {
+                self.cityImages = Array(repeating: nil, count: self.cities.count)
+            }
+        }
+    }
+    var cityImages: [UIImage?] = []
     var selectedCellImage: UIImage?
     var selectedCellSnapshot: UIView?
     var flowLayout: UICollectionViewFlowLayout?
 
-    let openPhotosApiController = OpenPhotosAPIController()
+    var openPhotosApiController: OpenPhotosAPIController?
+    var weatherController: WeatherController?
+    var databaseController: DatabaseController?
 
     lazy var itemSize: CGSize = {
         let screen = Screen(view: self.view)
@@ -28,10 +35,6 @@ class MainViewController: UICollectionViewController, UIViewControllerTransition
     }()
 
     required init?(coder aDecoder: NSCoder) {
-        let controller = CitiesController()
-        self.cities = controller.cities
-        self.cityImages = Array(repeating: nil, count: self.cities.count)
-
         super.init(coder: aDecoder)
     }
 

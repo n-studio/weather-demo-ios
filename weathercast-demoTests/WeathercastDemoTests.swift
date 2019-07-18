@@ -31,7 +31,9 @@ class WeathercastDemoTests: XCTestCase {
     func testForecastRecord() {
         let expectation0 = XCTestExpectation(description: "Get HTTP response")
 
-        let controller = WeatherController()
+        let controller = WeatherController(weatherAPIController: OpenWeatherAPIController(),
+                                           databaseController: CoreDataController.shared,
+                                           weatherDataFactory: WeatherCoreDataFactory())
         let now = Date(timeIntervalSince1970: TimeInterval(1560589200))
         controller.fetchForecast(city: "Paris", country: "fr", from: now, type: "daily") { forecasts, error in
             assert(forecasts.count == 6, "Wrong count of forecasts \(forecasts.count)")

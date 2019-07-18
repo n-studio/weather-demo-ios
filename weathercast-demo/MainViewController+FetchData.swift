@@ -22,7 +22,7 @@ extension MainViewController {
             let country = self.cities[index].country
 
             // Fetch weather data
-            weatherController.fetchForecast(city: city, country: country, from: now, type: "daily") { (forecasts, error) in
+            weatherController?.fetchForecast(city: city, country: country, from: now, type: "daily") { (forecasts, error) in
                 if let error = error {
                     NSLog(error.localizedDescription)
                 }
@@ -49,12 +49,12 @@ extension MainViewController {
     }
 
     private func fetchBackgroundImage(query: String, completion: @escaping ImageResult) {
-        if let photoFromCache = openPhotosApiController.photosCache.object(forKey: query) as? UIImage {
+        if let photoFromCache = openPhotosApiController?.photosCache.object(forKey: query) as? UIImage {
             completion(photoFromCache)
             return
         }
-        openPhotosApiController.searchPhoto(query: query) { (urlString) in
-            self.openPhotosApiController.getPhoto(query: query, urlString: urlString) { (image) in
+        openPhotosApiController?.searchPhoto(query: query) { (urlString) in
+            self.openPhotosApiController?.getPhoto(query: query, urlString: urlString) { (image) in
                 completion(image)
             }
         }

@@ -10,7 +10,7 @@ import UIKit
 
 class CityDetailViewSegue: UIStoryboardSegue {
     private var selfRetainer: CityDetailViewSegue? = nil
-    let transition = CellTransition()
+    var transition: CellTransition?
 
     override func perform() {
         destination.transitioningDelegate = self
@@ -22,13 +22,13 @@ class CityDetailViewSegue: UIStoryboardSegue {
 
 extension CityDetailViewSegue: UIViewControllerTransitioningDelegate {
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        transition.pop = false
+        transition?.pop = false
         return transition
     }
 
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         selfRetainer = nil
-        transition.pop = true
+        transition?.pop = true
         return transition
     }
 }

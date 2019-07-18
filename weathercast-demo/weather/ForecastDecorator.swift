@@ -9,7 +9,7 @@
 import UIKit
 
 class ForecastDecorator {
-    weak var forecast: Forecast?
+    weak var forecast: ForecastModel?
 
     lazy private var weekdayFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -25,11 +25,11 @@ class ForecastDecorator {
         return formatter
     }()
 
-    init(forecast: Forecast) {
+    init(forecast: ForecastModel) {
         self.forecast = forecast
     }
 
-    static func collection(_ collection: [Forecast]) -> [ForecastDecorator] {
+    static func collection(_ collection: [ForecastModel]) -> [ForecastDecorator] {
         var decorators: [ForecastDecorator] = []
         for item in collection {
             let decorator = ForecastDecorator(forecast: item)

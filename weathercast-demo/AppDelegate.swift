@@ -14,6 +14,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        let mainController = self.window?.rootViewController as? MainViewController
+
+        let controller = CitiesController()
+        mainController?.cities = controller.cities
+        mainController?.databaseController = CoreDataController.shared
+        mainController?.openPhotosApiController = OpenPhotosAPIController()
+        mainController?.weatherController = WeatherController(weatherAPIController: OpenWeatherAPIController(),
+                                                              databaseController: CoreDataController.shared,
+                                                              weatherDataFactory: WeatherCoreDataFactory())
 
         return true
     }

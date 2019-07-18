@@ -1,5 +1,5 @@
 //
-//  WeatherDataFactory.swift
+//  WeatherCoreDataFactory.swift
 //  weathercast-demo
 //
 //  Created by Matthew Nguyen on 2019/06/15.
@@ -29,8 +29,8 @@ struct Measurement {
     var windSpeed: Float?
 }
 
-class WeatherDataFactory {
-    typealias ForecastResult = ([Forecast], Error?) -> ()
+class WeatherCoreDataFactory: WeatherDataFactory {
+    typealias ForecastResult = ([ForecastModel], Error?) -> ()
 
     func parseAndBuildForecastsFrom(jsonData: Data, completion: @escaping ForecastResult) {
         var forecasts: [Forecast] = []
